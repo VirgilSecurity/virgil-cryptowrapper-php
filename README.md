@@ -1,4 +1,4 @@
-# Virgil Security Objective-C/Swift Crypto Library Wrapper
+# Virgil Security PHP Crypto Library Wrapper
 
 [![Build Status](https://api.travis-ci.com/VirgilSecurity/virgil-cryptowrapper-php.svg?branch=master)](https://travis-ci.com/VirgilSecurity/virgil-cryptowrapper-php)
 [![GitHub license](https://img.shields.io/badge/license-BSD%203--Clause-blue.svg)](https://github.com/VirgilSecurity/virgil/blob/master/LICENSE)
