@@ -42,32 +42,53 @@ Implementation of the [Double Ratchet](https://signal.org/docs/specifications/do
 
 ## Installation
 
-TODO!
+This package is available for PHP versions **7.2** and **7.3**.
 
+- **Step #1.** Install the crypto wrapper with the following code:
+
+    ```bash
+    composer require virgil/cryptowrapper
+    ```
+
+- **Step #2.** Add the crypto extensions into your server with the following code and follow the instructions below:
+     ```bash
+     bash setup_extensions.sh -all
+     ```
+     
 ## Additional information
 
 ### Manual adding the crypto extension into your server
 
-- [Download](https://github.com/VirgilSecurity/virgil-crypto-php/releases) *virgil-test.zip*, unzip it and execute on your server [virgil-test.php](/_help/virgil-test.php) file.
+- Execute on your server [virgil-test.php](help/virgil-test.php) file.
 
-- [Download](https://github.com/VirgilSecurity/virgil-crypto-php/releases) and unzip *%YOUR_OS%_extension.zip* archive according to your server operating system and PHP version.
-
-- Make sure you have access to edit the php.ini file (for example, use *root* for the Linux/Darwin or run *cmd* under administrator for the Windows).
-- Copy extension files to the extensions directory.
+- [Copy extensions files](extensions/bin) according to your server operating system and PHP version to the extensions directory.
     - For Linux/Darwin:
     ```
-     $ path="%PATH_TO_EXTENSIONS_DIR%" && cp vscf_foundation_php.so $path
+     $ path="%PATH_TO_EXTENSIONS_DIR%" && cp ___PASTE_EXTENSION_NAME_HERE___.so $path
     ```
     - For Windows:
     ```
-     $ set path=%PATH_TO_EXTENSIONS_DIR% && copy vscf_foundation_php.dll %path%
+     $ set path=%PATH_TO_EXTENSIONS_DIR% && copy ___PASTE_EXTENSION_NAME_HERE___.dll %path%
     ```
-- Add the extensions into the php.ini file 
+- [Copy ini files](extensions/ini) to the PATH_TO_ADDITIONAL_INI_FILES or add the extensions to the PATH_TO_MAIN_PHP.INI file:
     ```
-    $ echo -e "extension=vscf_foundation_php” >> %PATH_TO_PHP.INI%
+    $ echo -e "extension=___PASTE_EXTENSION_NAME_HERE___" >> %PATH_TO_MAIN_PHP.INI%
     ```
     
 - Restart your server or php-fpm service
+
+#### Extensions installation example
+
+Our web stack is: *Linux, nginx, php7.2-fpm*
+
+- Execute [virgil-test.php](/help/virgil-test.php) to find your path to the extensions directory and the path to the additional ini files (or to the main php.ini file):
+  ![alt text](help/01.png)
+
+- Then, go to the command line interface (CLI) to specify the paths you've identified in the previous step and restart your server or php-fpm service:
+  ![alt text](help/02.png)
+
+- Reload the page in your browser to see that the extension is loaded:
+  ![alt text](help/03.png)
 
 ## Docs
 - [Crypto Core Library](https://github.com/VirgilSecurity/virgil-crypto-c)

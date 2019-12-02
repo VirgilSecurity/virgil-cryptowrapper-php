@@ -18,9 +18,9 @@ install:
 - curl -sS https://getcomposer.org/installer -o composer-setup.php
 - sudo php composer-setup.php --install-dir=/usr/local/bin --filename=composer
 before_script:
-- sudo cp $TRAVIS_BUILD_DIR/extensions/linux/vsce_phe_php.so /usr/lib/php/20170718
-- sudo cp $TRAVIS_BUILD_DIR/extensions/linux/vscf_foundation_php.so /usr/lib/php/20170718
-- sudo cp $TRAVIS_BUILD_DIR/extensions/linux/vscp_pythia_php.so /usr/lib/php/20170718
+- sudo cp $TRAVIS_BUILD_DIR/extensions/bin/linux/vsce_phe_php.so /usr/lib/php/20170718
+- sudo cp $TRAVIS_BUILD_DIR/extensions/bin/linux/vscf_foundation_php.so /usr/lib/php/20170718
+- sudo cp $TRAVIS_BUILD_DIR/extensions/bin/linux/vscp_pythia_php.so /usr/lib/php/20170718
 - sudo sh -c "echo 'extension=vsce_phe_php' >> /etc/php/7.2/cli/php.ini"
 - sudo sh -c "echo 'extension=vscf_foundation_php' >> /etc/php/7.2/cli/php.ini"
 - sudo sh -c "echo 'extension=vscp_pythia_php' >> /etc/php/7.2/cli/php.ini"
