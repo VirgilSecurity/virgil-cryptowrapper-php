@@ -220,7 +220,7 @@ finish() {
 
 get_manually() {
     printf "%s\nPlease try installing the extension manually in accordance with this instruction:\n" $LOG_DELIMETR
-    echo -e '\e]8;;https://github.com/VirgilSecurity/virgil-purekit-php#additional-information\ahttps://github.com/VirgilSecurity/virgil-purekit-php#additional-information\e]8;;\a'
+    echo -e '\e]8;;https://github.com/VirgilSecurity/virgil-cryptowrapper-php#additional-information\ahttps://github.com/VirgilSecurity/virgil-cryptowrapper-php#additional-information\e]8;;\a'
     printf "%s\n" $LOG_DELIMETR
 }
 
