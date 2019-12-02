@@ -3,19 +3,51 @@
 clear
 
 init() {
-	LOG_DELIMETR="----------"
-	IS_ERR=0
+    LOG_DELIMETR="----------"
+    ERR_LEVEL=0
 
-	PATH_TO_SO="extensions/bin/linux"
-	PATH_TO_INI="extensions/ini"
+    PATH_TO_SO="extensions/bin/linux"
+    PATH_TO_INI="extensions/ini"
 
-	LIST_EXT="vsce_phe_php vscf_foundation_php vscp_pythia_php vscr_ratchet_php"
+    ERR_LEVEL=0
+    IS_DEV=0
+}
 
-	printf "Сrypto extensions installation...\n%s\n" $LOG_DELIMETR
+check_input() {
+    printf "Checking input... %s"
+
+    if [ -z "$1" ]; then
+        get_err "input_null"
+    fi
+
+    LIST_EXT=""
+
+    case "$1" in
+        "*")
+            LIST_EXT="vscf_foundation_php vsce_phe_php vscr_ratchet_php vscp_pythia_php"
+            ;;
+        "foundation")
+            LIST_EXT="vscf_foundation_php"
+            ;;
+        "phe")
+            LIST_EXT="vscf_foundation_php vsce_phe_php"
+            ;;
+        "ratchet")
+            LIST_EXT="vscf_foundation_php vscr_ratchet_php"
+            ;;
+        "pythia")
+            LIST_EXT="vscp_pythia_php"
+            ;;
+        *)
+            get_err "input_invalid" "$1"
+            ;;
+    esac
+
+    get_success
 }
 
 get_err() {
-	IS_ERR=1
+	ERR_LEVEL=1
 	case "$1" in
 		php-v)
 			ERR_MSG="Invalid PHP version: $2"
@@ -32,23 +64,22 @@ get_err() {
 		cp-ext|cp-ini)
 			ERR_MSG="Cannot copy $2 to the $3"
 			;;
+        input_null)
+            ERR_MSG="Project not specified"
+            ;;
+		input_invalid)
+			ERR_MSG="Invalid project: $2"
+			;;
 		*)
 			ERR_MSG="Internal error: $1"
 			;;
 	esac
 
 	printf "[FAIL]\nError status: %s\n" "$ERR_MSG"
-	exit 0
-}
 
-get_warn() {
-	case "$1" in
-		restart)
-			ERR_MSG="Restart your webserver manualy!"
-			;;
-	esac
+    get_manually
 
-	printf "%s\n[WARNING] %s\n" $LOG_DELIMETR "$ERR_MSG"
+    exit 0
 }
 
 get_success() {
@@ -132,10 +163,10 @@ get_ini_dir() {
 }
 
 get_config() {
-	if [ $IS_ERR -eq 0 ]; then
+	if [ $ERR_LEVEL -eq 0 ]; then
 		printf "%s\nSYSTEM CONFIGURATION:\n" $LOG_DELIMETR
 
-		printf "OS: %s\n" "$OS"
+		printf "OS (short): %s\n" "$OS"
 		printf "PHP version (short): %s\n" "$PHP_VERSION_SHORT"
 		printf "PHP version (full):\n%s\n" "$PHP_VERSION"
 		printf "Extensions directory: %s\n" "$EXTENSION_DIR"
@@ -148,7 +179,7 @@ cp_ext() {
 	for EXT in $LIST_EXT
 	do
 		printf "Copying $EXT.so to the $EXTENSION_DIR... "
-		
+
 		if sudo cp "$PATH_TO_SO/$EXT.so" "$EXTENSION_DIR/$EXT.so"; then
 			get_success
 		else
@@ -158,40 +189,42 @@ cp_ext() {
 }
 
 cp_ini() {
-	for EXT in $LIST_EXT
-	do
-		printf "Copying $EXT.ini to the $PHP_INI_DIR... "
-		
-		if sudo cp "$PATH_TO_INI/$EXT.ini" "$PHP_INI_DIR/$EXT.ini"; then
-			get_success
-		else
-			get_err "cp-ini" "$EXT.ini" "$PHP_INI_DIR"
-		fi
-	done
-}
+    for EXT in $LIST_EXT
+    do
+        printf "Copying $EXT.ini file to the $PHP_INI_DIR... "
 
-restart() {
-	IS_RESTARTED=0
-
-	if service --status-all | grep -Fq 'apache2'; then
-		IS_RESTARTED=1   
-	  	sudo service apache2 restart
-	else service --status-all | grep -Fq 'php7.2-fpm'
-		IS_RESTARTED=1
-		sudo service php7.2-fpm reload
-	fi
-
-	if [ $IS_RESTARTED -eq 0 ]; then
-		get_warn "restart"
-	fi
+        if sudo cp "$PATH_TO_INI/$EXT.ini" "$PHP_INI_DIR/$EXT.ini"; then
+            get_success
+        else
+            get_err "cp-ini" "$EXT.ini" "$PHP_INI_DIR"
+        fi
+    done
 }
 
 finish() {
-	if [ $IS_ERR -eq 0 ]; then
-		printf "%s\n[DONE]\n" $LOG_DELIMETR
-		exit 1
-	fi
+
+	printf "%s\nSTATUS: " "$LOG_DELIMETR"
+
+	case $ERR_LEVEL in
+	     0)
+	          printf "Success!\n"
+	          ;;
+	     *)
+	          get_err "$ERR_LEVEL"
+	esac
+
+	exit 1
 }
+
+get_manually() {
+	printf "%s\nPlease try installing the extension manually in accordance with this instruction:\n" $LOG_DELIMETR
+	echo -e '\e]8;;https://github.com/VirgilSecurity/virgil-purekit-php#additional-information\ahttps://github.com/VirgilSecurity/virgil-purekit-php#additional-information\e]8;;\a'
+    printf "%s\n" $LOG_DELIMETR
+}
+
+printf "Сrypto extensions installation...\n%s\n" $LOG_DELIMETR
+
+check_input "$1"
 
 init
 get_php_v
@@ -201,6 +234,4 @@ get_ini_dir
 get_config
 cp_ext
 cp_ini
-restart
 finish
-

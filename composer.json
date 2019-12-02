@@ -27,9 +27,5 @@
     "psr-4": {
       "Virgil\\CryptoWrapperTests\\": "tests/"
     }
-  },
-  "scripts": {
-    "setup-extension": [
-    ]
   }
 }
