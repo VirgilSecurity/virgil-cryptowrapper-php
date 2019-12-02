@@ -153,7 +153,7 @@ get_ini_dir() {
     PHP_INI_DIR_CONVERT_TO_FPM=${PHP_INI_DIR_//cli/fpm}
 
     if [ -d "$PHP_INI_DIR_CONVERT_TO_FPM" ]; then
-        PHP_INI_DIR=$PHP_INI_DIR_CONVERT_TO_FPM
+        PHP_INI_DIR=""$PHP_INI_DIR_CONVERT_TO_FPM" "$PHP_INI_DIR""
     fi
 
     if [ -z "$PHP_INI_DIR_STRING" ]; then
@@ -190,15 +190,18 @@ cp_ext() {
 }
 
 cp_ini() {
-    for EXT in $LIST_EXT
+    for PID in $PHP_INI_DIR
     do
-        printf "Copying $EXT.ini file to the $PHP_INI_DIR... "
+        for EXT in $LIST_EXT
+        do
+            printf "Copying $EXT.ini file to the $PID... "
 
-        if sudo cp "$PATH_TO_INI/$EXT.ini" "$PHP_INI_DIR/$EXT.ini"; then
-            get_success
-        else
-            get_err "cp-ini" "$EXT.ini" "$PHP_INI_DIR"
-        fi
+            if sudo cp "$PATH_TO_INI/$EXT.ini" "$PID/$EXT.ini"; then
+                get_success
+            else
+                get_err "cp-ini" "$EXT.ini" "$PID"
+            fi
+        done
     done
 }
 
@@ -213,8 +216,6 @@ finish() {
          *)
               get_err "$ERR_LEVEL"
     esac
-
-    exit 1
 }
 
 get_manually() {
