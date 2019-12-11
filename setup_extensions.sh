@@ -192,16 +192,13 @@ cp_ext() {
 cp_ini() {
     for PID in $PHP_INI_DIR
     do
-        for EXT in $LIST_EXT
-        do
-            printf "Copying $EXT.ini file to the $PID... "
+        printf "Copying virgil_crypto.ini file to the $PID... "
 
-            if sudo cp "$PATH_TO_INI/$EXT.ini" "$PID/$EXT.ini"; then
-                get_success
-            else
-                get_err "cp-ini" "$EXT.ini" "$PID"
-            fi
-        done
+        if sudo cp "$PATH_TO_INI/virgil_crypto.ini" "$PID/virgil_crypto.ini"; then
+            get_success
+        else
+            get_err "cp-ini" "virgil_crypto.ini" "$PID"
+        fi
     done
 }
 
@@ -220,7 +217,7 @@ finish() {
 
 get_manually() {
     printf "%s\nPlease try installing the extension manually in accordance with this instruction:\n" $LOG_DELIMETR
-    echo -e '\e]8;;https://github.com/VirgilSecurity/virgil-cryptowrapper-php#additional-information\ahttps://github.com/VirgilSecurity/virgil-cryptowrapper-php#additional-information\e]8;;\a'
+    echo -e '\e]8;;https://github.com/VirgilSecurity/virgil-purekit-php#additional-information\ahttps://github.com/VirgilSecurity/virgil-purekit-php#additional-information\e]8;;\a'
     printf "%s\n" $LOG_DELIMETR
 }
 
