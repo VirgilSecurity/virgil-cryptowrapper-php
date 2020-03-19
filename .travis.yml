@@ -17,4 +17,4 @@ install:
 before_script:
 - sh $TRAVIS_BUILD_DIR/_extensions/setup.sh -all
 - composer install
-script: composer exec phpunit --configuration phpunit.xml
+script: vendor/bin/phpunit --configuration phpunit.xml
