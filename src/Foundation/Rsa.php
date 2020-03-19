@@ -1,6 +1,6 @@
 <?php
 /**
-* Copyright (C) 2015-2019 Virgil Security, Inc.
+* Copyright (C) 2015-2020 Virgil Security, Inc.
 *
 * All rights reserved.
 *
@@ -40,7 +40,7 @@ namespace Virgil\CryptoWrapper\Foundation;
 /**
 * RSA implementation.
 */
-class Rsa implements Alg, KeyAlg, KeyCipher, KeySigner
+class Rsa implements KeyAlg, KeyCipher, KeySigner
 {
 
     /**
@@ -104,41 +104,6 @@ class Rsa implements Alg, KeyAlg, KeyCipher, KeySigner
     {
         $ctx = vscf_rsa_generate_key_php($this->ctx, $bitlen);
         return FoundationImplementation::wrapPrivateKey($ctx);
-    }
-
-    /**
-    * Provide algorithm identificator.
-    *
-    * @return AlgId
-    */
-    public function algId(): AlgId
-    {
-        $enum = vscf_rsa_alg_id_php($this->ctx);
-        return new AlgId($enum);
-    }
-
-    /**
-    * Produce object with algorithm information and configuration parameters.
-    *
-    * @return AlgInfo
-    * @throws \Exception
-    */
-    public function produceAlgInfo(): AlgInfo
-    {
-        $ctx = vscf_rsa_produce_alg_info_php($this->ctx);
-        return FoundationImplementation::wrapAlgInfo($ctx);
-    }
-
-    /**
-    * Restore algorithm configuration from the given object.
-    *
-    * @param AlgInfo $algInfo
-    * @return void
-    * @throws \Exception
-    */
-    public function restoreAlgInfo(AlgInfo $algInfo): void
-    {
-        vscf_rsa_restore_alg_info_php($this->ctx, $algInfo->getCtx());
     }
 
     /**
@@ -317,12 +282,12 @@ class Rsa implements Alg, KeyAlg, KeyCipher, KeySigner
     * Return length in bytes required to hold signature.
     * Return zero if a given private key can not produce signatures.
     *
-    * @param Key $key
+    * @param PrivateKey $privateKey
     * @return int
     */
-    public function signatureLen(Key $key): int
+    public function signatureLen(PrivateKey $privateKey): int
     {
-        return vscf_rsa_signature_len_php($this->ctx, $key->getCtx());
+        return vscf_rsa_signature_len_php($this->ctx, $privateKey->getCtx());
     }
 
     /**

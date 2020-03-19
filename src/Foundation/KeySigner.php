@@ -1,6 +1,6 @@
 <?php
 /**
-* Copyright (C) 2015-2019 Virgil Security, Inc.
+* Copyright (C) 2015-2020 Virgil Security, Inc.
 *
 * All rights reserved.
 *
@@ -56,10 +56,10 @@ interface KeySigner extends Ctx
     * Return length in bytes required to hold signature.
     * Return zero if a given private key can not produce signatures.
     *
-    * @param Key $key
+    * @param PrivateKey $privateKey
     * @return int
     */
-    public function signatureLen(Key $key): int;
+    public function signatureLen(PrivateKey $privateKey): int;
 
     /**
     * Sign data digest with a given private key.

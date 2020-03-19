@@ -1,6 +1,6 @@
 <?php
 /**
-* Copyright (C) 2015-2019 Virgil Security, Inc.
+* Copyright (C) 2015-2020 Virgil Security, Inc.
 *
 * All rights reserved.
 *
@@ -47,21 +47,6 @@ class PbeAlgInfo implements AlgInfo
     * @var
     */
     private $ctx;
-
-    /**
-    * Create algorithm info with identificator, KDF algorithm info and
-    * cipher alg info.
-    *
-    * @param AlgId $algId
-    * @param AlgInfo $kdfAlgInfo
-    * @param AlgInfo $cipherAlgInfo
-    * @return PbeAlgInfo
-    */
-    public static function withMembers(AlgId $algId, AlgInfo $kdfAlgInfo, AlgInfo $cipherAlgInfo): PbeAlgInfo
-    {
-        $ctx = vscf_pbe_alg_info_with_members_php($algId, $kdfAlgInfo, $cipherAlgInfo);
-        return new PbeAlgInfo($ctx);
-    }
 
     /**
     * Create underlying C context.

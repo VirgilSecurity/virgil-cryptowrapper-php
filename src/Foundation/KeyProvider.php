@@ -1,6 +1,6 @@
 <?php
 /**
-* Copyright (C) 2015-2019 Virgil Security, Inc.
+* Copyright (C) 2015-2020 Virgil Security, Inc.
 *
 * All rights reserved.
 *
@@ -78,15 +78,6 @@ class KeyProvider
     }
 
     /**
-    * @param Ecies $ecies
-    * @return void
-    */
-    public function useEcies(Ecies $ecies): void
-    {
-        vscf_key_provider_use_ecies_php($this->ctx, $ecies->getCtx());
-    }
-
-    /**
     * Setup predefined values to the uninitialized class dependencies.
     *
     * @return void
@@ -109,7 +100,7 @@ class KeyProvider
     }
 
     /**
-    * Generate new private key from the given id.
+    * Generate new private key with a given algorithm.
     *
     * @param AlgId $algId
     * @return PrivateKey
@@ -118,6 +109,74 @@ class KeyProvider
     public function generatePrivateKey(AlgId $algId): PrivateKey
     {
         $ctx = vscf_key_provider_generate_private_key_php($this->ctx, $algId->getValue());
+        return FoundationImplementation::wrapPrivateKey($ctx);
+    }
+
+    /**
+    * Generate new post-quantum private key with default algorithms.
+    * Note, that a post-quantum key combines classic private keys
+    * alongside with post-quantum private keys.
+    * Current structure is "compound private key" is:
+    * - cipher private key is "hybrid private key" where:
+    * - first key is a classic private key;
+    * - second key is a post-quantum private key;
+    * - signer private key "hybrid private key" where:
+    * - first key is a classic private key;
+    * - second key is a post-quantum private key.
+    *
+    * @return PrivateKey
+    * @throws \Exception
+    */
+    public function generatePostQuantumPrivateKey(): PrivateKey
+    {
+        $ctx = vscf_key_provider_generate_post_quantum_private_key_php($this->ctx);
+        return FoundationImplementation::wrapPrivateKey($ctx);
+    }
+
+    /**
+    * Generate new compound private key with given algorithms.
+    *
+    * @param AlgId $cipherAlgId
+    * @param AlgId $signerAlgId
+    * @return PrivateKey
+    * @throws \Exception
+    */
+    public function generateCompoundPrivateKey(AlgId $cipherAlgId, AlgId $signerAlgId): PrivateKey
+    {
+        $ctx = vscf_key_provider_generate_compound_private_key_php($this->ctx, $cipherAlgId->getValue(), $signerAlgId->getValue());
+        return FoundationImplementation::wrapPrivateKey($ctx);
+    }
+
+    /**
+    * Generate new hybrid private key with given algorithms.
+    *
+    * @param AlgId $firstKeyAlgId
+    * @param AlgId $secondKeyAlgId
+    * @return PrivateKey
+    * @throws \Exception
+    */
+    public function generateHybridPrivateKey(AlgId $firstKeyAlgId, AlgId $secondKeyAlgId): PrivateKey
+    {
+        $ctx = vscf_key_provider_generate_hybrid_private_key_php($this->ctx, $firstKeyAlgId->getValue(), $secondKeyAlgId->getValue());
+        return FoundationImplementation::wrapPrivateKey($ctx);
+    }
+
+    /**
+    * Generate new compound private key with nested hybrid private keys.
+    *
+    * Note, second key algorithm identifiers can be NONE, in this case,
+    * a regular key will be crated instead of a hybrid key.
+    *
+    * @param AlgId $cipherFirstKeyAlgId
+    * @param AlgId $cipherSecondKeyAlgId
+    * @param AlgId $signerFirstKeyAlgId
+    * @param AlgId $signerSecondKeyAlgId
+    * @return PrivateKey
+    * @throws \Exception
+    */
+    public function generateCompoundHybridPrivateKey(AlgId $cipherFirstKeyAlgId, AlgId $cipherSecondKeyAlgId, AlgId $signerFirstKeyAlgId, AlgId $signerSecondKeyAlgId): PrivateKey
+    {
+        $ctx = vscf_key_provider_generate_compound_hybrid_private_key_php($this->ctx, $cipherFirstKeyAlgId->getValue(), $cipherSecondKeyAlgId->getValue(), $signerFirstKeyAlgId->getValue(), $signerSecondKeyAlgId->getValue());
         return FoundationImplementation::wrapPrivateKey($ctx);
     }
 

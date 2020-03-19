@@ -1,6 +1,6 @@
 <?php
 /**
-* Copyright (C) 2015-2019 Virgil Security, Inc.
+* Copyright (C) 2015-2020 Virgil Security, Inc.
 *
 * All rights reserved.
 *
@@ -67,4 +67,9 @@ class OidId extends Enum
     private const HMAC_WITH_SHA512 = 22;
     private const EC_GENERIC_KEY = 23;
     private const EC_DOMAIN_SECP256R1 = 24;
+    private const COMPOUND_KEY = 25;
+    private const HYBRID_KEY = 26;
+    private const FALCON = 27;
+    private const ROUND5_ND_5KEM_5D = 28;
+    private const RANDOM_PADDING = 29;
 }

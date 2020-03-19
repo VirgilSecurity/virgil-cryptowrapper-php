@@ -1,6 +1,6 @@
 <?php
 /**
-* Copyright (C) 2015-2019 Virgil Security, Inc.
+* Copyright (C) 2015-2020 Virgil Security, Inc.
 *
 * All rights reserved.
 *
@@ -47,22 +47,6 @@ class SaltedKdfAlgInfo implements AlgInfo
     * @var
     */
     private $ctx;
-
-    /**
-    * Create algorithm info with identificator, HASH algorithm info,
-    * salt and iteration count.
-    *
-    * @param AlgId $algId
-    * @param AlgInfo $hashAlgInfo
-    * @param string $salt
-    * @param int $iterationCount
-    * @return SaltedKdfAlgInfo
-    */
-    public static function withMembers(AlgId $algId, AlgInfo $hashAlgInfo, string $salt, int $iterationCount): SaltedKdfAlgInfo
-    {
-        $ctx = vscf_salted_kdf_alg_info_with_members_php($algId, $hashAlgInfo, $salt, $iterationCount);
-        return new SaltedKdfAlgInfo($ctx);
-    }
 
     /**
     * Create underlying C context.

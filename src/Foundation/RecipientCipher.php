@@ -1,6 +1,6 @@
 <?php
 /**
-* Copyright (C) 2015-2019 Virgil Security, Inc.
+* Copyright (C) 2015-2020 Virgil Security, Inc.
 *
 * All rights reserved.
 *
@@ -85,6 +85,24 @@ class RecipientCipher
     public function useEncryptionCipher(Cipher $encryptionCipher): void
     {
         vscf_recipient_cipher_use_encryption_cipher_php($this->ctx, $encryptionCipher->getCtx());
+    }
+
+    /**
+    * @param Padding $encryptionPadding
+    * @return void
+    */
+    public function useEncryptionPadding(Padding $encryptionPadding): void
+    {
+        vscf_recipient_cipher_use_encryption_padding_php($this->ctx, $encryptionPadding->getCtx());
+    }
+
+    /**
+    * @param PaddingParams $paddingParams
+    * @return void
+    */
+    public function usePaddingParams(PaddingParams $paddingParams): void
+    {
+        vscf_recipient_cipher_use_padding_params_php($this->ctx, $paddingParams->getCtx());
     }
 
     /**

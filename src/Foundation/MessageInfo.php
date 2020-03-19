@@ -1,6 +1,6 @@
 <?php
 /**
-* Copyright (C) 2015-2019 Virgil Security, Inc.
+* Copyright (C) 2015-2020 Virgil Security, Inc.
 *
 * All rights reserved.
 *
@@ -144,6 +144,28 @@ class MessageInfo
     public function cipherKdfAlgInfo(): AlgInfo
     {
         $ctx = vscf_message_info_cipher_kdf_alg_info_php($this->ctx);
+        return FoundationImplementation::wrapAlgInfo($ctx);
+    }
+
+    /**
+    * Return true if cipher padding alg info exists.
+    *
+    * @return bool
+    */
+    public function hasCipherPaddingAlgInfo(): bool
+    {
+        return vscf_message_info_has_cipher_padding_alg_info_php($this->ctx);
+    }
+
+    /**
+    * Return cipher padding alg info.
+    *
+    * @return AlgInfo
+    * @throws \Exception
+    */
+    public function cipherPaddingAlgInfo(): AlgInfo
+    {
+        $ctx = vscf_message_info_cipher_padding_alg_info_php($this->ctx);
         return FoundationImplementation::wrapAlgInfo($ctx);
     }
 

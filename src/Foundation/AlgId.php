@@ -1,6 +1,6 @@
 <?php
 /**
-* Copyright (C) 2015-2019 Virgil Security, Inc.
+* Copyright (C) 2015-2020 Virgil Security, Inc.
 *
 * All rights reserved.
 *
@@ -53,14 +53,18 @@ class AlgId extends Enum
     private const KDF1 = 5;
     private const KDF2 = 6;
     private const RSA = 7;
-    private const ECC = 8;
-    private const ED25519 = 9;
-    private const CURVE25519 = 10;
-    private const SECP256R1 = 11;
-    private const AES256_GCM = 12;
-    private const AES256_CBC = 13;
-    private const HMAC = 14;
-    private const HKDF = 15;
-    private const PKCS5_PBKDF2 = 16;
-    private const PKCS5_PBES2 = 17;
+    private const ED25519 = 8;
+    private const CURVE25519 = 9;
+    private const SECP256R1 = 10;
+    private const AES256_GCM = 11;
+    private const AES256_CBC = 12;
+    private const HMAC = 13;
+    private const HKDF = 14;
+    private const PKCS5_PBKDF2 = 15;
+    private const PKCS5_PBES2 = 16;
+    private const COMPOUND_KEY = 17;
+    private const HYBRID_KEY = 18;
+    private const FALCON = 19;
+    private const ROUND5_ND_5KEM_5D = 20;
+    private const RANDOM_PADDING = 21;
 }

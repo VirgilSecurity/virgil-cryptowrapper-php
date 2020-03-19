@@ -1,6 +1,6 @@
 <?php
 /**
-* Copyright (C) 2015-2019 Virgil Security, Inc.
+* Copyright (C) 2015-2020 Virgil Security, Inc.
 *
 * All rights reserved.
 *
@@ -106,5 +106,19 @@ class AlgFactory
     {
         $ctx = vscf_alg_factory_create_cipher_from_info_php($algInfo->getCtx());
         return FoundationImplementation::wrapCipher($ctx);
+    }
+
+    /**
+    * Create algorithm that implements "padding" interface.
+    *
+    * @param AlgInfo $algInfo
+    * @param Random $random
+    * @return Padding
+    * @throws \Exception
+    */
+    public static function createPaddingFromInfo(AlgInfo $algInfo, Random $random): Padding
+    {
+        $ctx = vscf_alg_factory_create_padding_from_info_php($algInfo->getCtx(), $random->getCtx());
+        return FoundationImplementation::wrapPadding($ctx);
     }
 }

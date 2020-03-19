@@ -1,6 +1,6 @@
 <?php
 /**
-* Copyright (C) 2015-2019 Virgil Security, Inc.
+* Copyright (C) 2015-2020 Virgil Security, Inc.
 *
 * All rights reserved.
 *
@@ -69,24 +69,26 @@ class PheServer
     }
 
     /**
-    * @param VirgilCrypto\Foundation\Random $random
+    * @param Virgil\CryptoWrapper\Foundation\Random $random
     * @return void
     */
-    public function useRandom(VirgilCrypto\Foundation\Random $random): void
+    public function useRandom(Virgil\CryptoWrapper\Foundation\Random $random): void
     {
         vsce_phe_server_use_random_php($this->ctx, $random->getCtx());
     }
 
     /**
-    * @param VirgilCrypto\Foundation\Random $operationRandom
+    * @param Virgil\CryptoWrapper\Foundation\Random $operationRandom
     * @return void
     */
-    public function useOperationRandom(VirgilCrypto\Foundation\Random $operationRandom): void
+    public function useOperationRandom(Virgil\CryptoWrapper\Foundation\Random $operationRandom): void
     {
         vsce_phe_server_use_operation_random_php($this->ctx, $operationRandom->getCtx());
     }
 
     /**
+    * Setups dependencies with default values.
+    *
     * @return void
     * @throws \Exception
     */

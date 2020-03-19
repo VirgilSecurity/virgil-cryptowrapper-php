@@ -1,7 +1,7 @@
 language: php
 matrix:
   include:
-  - os: linux
+  - os: lin
     compiler: gcc
     sudo: required
     dist: xenial
