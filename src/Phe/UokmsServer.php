@@ -97,7 +97,7 @@ class UokmsServer
     }
 
     /**
-    * Generates new NIST P-256 server key pair for some client
+    * Generates new NIST Pythia-256 server key pair for some client
     *
     * @return array
     * @throws \Exception

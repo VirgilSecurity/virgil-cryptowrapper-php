@@ -45,7 +45,7 @@ class PheServerTest extends \PHPUnit\Framework\TestCase
     private $client;
     private $server;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->server = new PheServer();
         $this->server->setupDefaults();
@@ -53,13 +53,13 @@ class PheServerTest extends \PHPUnit\Framework\TestCase
         $this->client->setupDefaults();
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         unset($this->client);
         unset($this->server);
     }
 
-    public function test_PheServer_generateKeyPair()
+    public function test_PheServer_generateKeyPair(): void
     {
         list($privateKey, $publicKey) = $this->server->generateServerKeyPair();
         $this->assertNotNull($privateKey);
@@ -68,7 +68,7 @@ class PheServerTest extends \PHPUnit\Framework\TestCase
         $this->assertTrue(is_string($publicKey));
     }
 
-    public function test_PheServer_getEnrollment()
+    public function test_PheServer_getEnrollment(): void
     {
         list($privateKey, $publicKey) = $this->server->generateServerKeyPair();
         $enroll = $this->server->getEnrollment($privateKey, $publicKey);
@@ -76,7 +76,7 @@ class PheServerTest extends \PHPUnit\Framework\TestCase
         $this->assertTrue(is_string($enroll));
     }
 
-    public function test_PheServer_verifyPassword()
+    public function test_PheServer_verifyPassword(): void
     {
         list($serverPrivateKey, $serverPublicKey) = $this->server->generateServerKeyPair();
         list($clientPrivateKey, $clientPublicKey) = $this->server->generateServerKeyPair();

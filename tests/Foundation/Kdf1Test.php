@@ -39,25 +39,26 @@ namespace Virgil\CryptoWrapperTests\Foundation;
 
 use Virgil\CryptoWrapper\Foundation\Kdf1;
 use Virgil\CryptoWrapper\Foundation\Sha256;
+use Virgil\CryptoWrapper\Pythia\Pythia;
 
 class Kdf1Test extends \PHPUnit\Framework\TestCase
 {
     private $kdf1;
     private $sha256;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->kdf1 = new KDF1();
         $this->sha256 = new Sha256();
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         unset($this->sha256);
         unset($this->kdf1);
     }
 
-    public function test_Kdf1_deriveKeyFromEmptyString()
+    public function test_Kdf1_deriveKeyFromEmptyString(): void
     {
         $kdf1 = $this->kdf1;
         $kdf1->useHash($this->sha256);
@@ -70,7 +71,7 @@ class Kdf1Test extends \PHPUnit\Framework\TestCase
         $this->assertEquals($vector1KeyBytes, $key);
     }
 
-    public function test_Kdf1_deriveVector2()
+    public function test_Kdf1_deriveVector2(): void
     {
         $kdf1 = $this->kdf1;
         $kdf1->useHash($this->sha256);
@@ -83,7 +84,7 @@ class Kdf1Test extends \PHPUnit\Framework\TestCase
         $this->assertEquals($vector2KeyBytes, $key);
     }
 
-    public function test_Kdf1_deriveVector3()
+    public function test_Kdf1_deriveVector3(): void
     {
         $kdf1 = $this->kdf1;
         $kdf1->useHash($this->sha256);

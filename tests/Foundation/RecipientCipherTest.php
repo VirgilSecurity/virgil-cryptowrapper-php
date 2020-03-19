@@ -54,21 +54,21 @@ class RecipientCipherTest extends \PHPUnit\Framework\TestCase
     const RECIPIENT_CIPHER_MESSAGE = "56697267696C205365637572697479204C69627261727920666F7220430A";
     const RECIPIENT_CIPHER_MESSAGE_2 = "56697267696C205365637572697479204C69627261727920666F7220430A56697267696C205365637572697479204C69627261727920666F7220430A56697267696C2053656375726974";
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->keyProvider = new KeyProvider();
         $this->keyAsn1Deserializer = new KeyAsn1Deserializer();
         $this->recipientCipher = new RecipientCipher();
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         unset($this->recipientCipher);
         unset($this->keyAsn1Deserializer);
         unset($this->keyProvider);
     }
 
-    public function test_RecipientCipher_encryptDecryptWithEd25519KeyRecipient()
+    public function test_RecipientCipher_encryptDecryptWithEd25519KeyRecipient(): void
     {
         $keyProvider = $this->keyProvider;
         $keyProvider->setupDefaults();
@@ -95,7 +95,7 @@ class RecipientCipherTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(self::unhexlify(self::RECIPIENT_CIPHER_MESSAGE), $decryptedMessage);
     }
 
-    public function test_RecipientCipher_decryptWithEd25519PublicKey()
+    public function test_RecipientCipher_decryptWithEd25519PublicKey(): void
     {
         $keyProvider = $this->keyProvider;
         $keyProvider->setupDefaults();

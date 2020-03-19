@@ -53,7 +53,7 @@ class PythiaTest extends \PHPUnit\Framework\TestCase
     private $kPythiaScopeSecret;
     private $kNewPythiaScopeSecret;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->pythia = new Pythia();
         Pythia::configure();
@@ -69,13 +69,13 @@ class PythiaTest extends \PHPUnit\Framework\TestCase
         $this->kNewPythiaScopeSecret = "new server secret";
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         Pythia::cleanup();
         unset($this->pythia);
     }
 
-    public function test_Pythia_blindDeblind_returnsSuccess()
+    public function test_Pythia_blindDeblind_returnsSuccess(): void
     {
         try {
             list($blindedPassword, $blindingSecret) = Pythia::blind($this->kPassword);
@@ -96,7 +96,7 @@ class PythiaTest extends \PHPUnit\Framework\TestCase
         }
     }
 
-    public function test_Pythia_proveVerify_returnsSuccess()
+    public function test_Pythia_proveVerify_returnsSuccess(): void
     {
         try {
             list($blindedPassword, $blindingSecret) = Pythia::blind($this->kPassword);
@@ -123,7 +123,7 @@ class PythiaTest extends \PHPUnit\Framework\TestCase
         }
     }
 
-    public function test_Pythia_updatePasswordToken_returnsSuccess()
+    public function test_Pythia_updatePasswordToken_returnsSuccess(): void
     {
         try {
             list($blindedPassword, $blindingSecret) = Pythia::blind($this->kPassword);
