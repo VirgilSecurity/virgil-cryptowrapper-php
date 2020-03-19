@@ -31,6 +31,15 @@ check_input() {
             ;;
     esac
 
+    case "$2" in
+        "vendor")
+            IS_DEP="vendor"
+            ;;
+        *)
+            IS_DEP=""
+            ;;
+    esac
+    s
     get_success
 }
 
@@ -185,10 +194,17 @@ cp_ext() {
     for EXT in $LIST_EXT
     do
         EXT_FULL_NAME="${EXT}${PHP_VERSION_SHORT}_${CRYPTO_VERSION}.so"
-        PATH_TO_BIN="${PATH_TO_BINS}/${OS_}/php${PHP_VERSION_SHORT}"
+
+        if ! [ -z "$IS_DEP" ]; then
+            PATH_TO_BINS_="$IS_DEP/$PATH_TO_BINS"
+        else
+            PATH_TO_BINS_="$PATH_TO_BINS"
+        fi
+
+        PATH_TO_BIN="${PATH_TO_BINS_}/${OS_}/php${PHP_VERSION_SHORT}"
         FULL_PATH_TO_BIN="${PATH_TO_BIN}/${EXT_FULL_NAME}"
 
-        if ! [ -f $FULL_PATH_TO_BIN ]; then
+        if ! [ -f ${FULL_PATH_TO_BIN} ]; then
             get_err "ext-input-path" $FULL_PATH_TO_BIN
         fi
 
@@ -236,7 +252,7 @@ get_manually() {
 
 printf "Сrypto extensions installation...\n%s\n" $LOG_DELIMETR
 
-check_input "$1"
+check_input "$1" "$2"
 
 init
 get_php_v
