@@ -30,12 +30,14 @@ This library contains basic cryptographic algorithms and can be used as building
 | Encryption schemes          | [PBES2](https://tools.ietf.org/html/rfc8018#section-6.2)                                                                                                  |
 | Elliptic Curves             | [Ed25519](https://tools.ietf.org/html/rfc8032), [Curve25519](https://tools.ietf.org/html/rfc7748)                                                         |
 
-### Library: Pythia
+### Library: PHE
 
 Cryptographic background for the [Password-Hardened Encryption (PHE) protocol](https://virgilsecurity.com/wp-content/uploads/2018/11/PHE-Whitepaper-2018.pdf) that provides developers with a technology to protect users 
-passwords from offline attacks and make stolen passwords useless even if your database has been compromised. Service 
-implementation can be found [here](https://github.com/VirgilSecurity/virgil-phe-go).
+passwords from offline attacks and make stolen passwords useless even if your database has been compromised.
 
+### Library: Pythia
+
+Implementation of the [Pythia](http://pages.cs.wisc.edu/~ace/papers/pythia-full.pdf) protocol.
 
 ## Installation
 
