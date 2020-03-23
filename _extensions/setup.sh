@@ -7,7 +7,7 @@ LOG_DELIMETR="----------"
 init() {
     ERR_LEVEL=0
     INI_FILE_NAME="virgil_crypto.ini"
-    PATH_TO_BINS="_extensions/bin"
+    PATH_TO_BINS="bin"
 
     ERR_LEVEL=0
     IS_DEV=0
@@ -32,14 +32,14 @@ check_input() {
     esac
 
     case "$2" in
-        "vendor")
-            IS_DEP="vendor"
+        "-vendor")
+            IS_DEP="$(dirname $0)"
             ;;
         *)
             IS_DEP=""
             ;;
     esac
-    s
+
     get_success
 }
 
@@ -53,7 +53,7 @@ get_err() {
             ERR_MSG="Invalid OS: $2"
             ;;
         package-v)
-            ERR_MSG="VERSION file not found or empty" 
+            ERR_MSG="VERSION file not found or empty"
             ;;
         ext-input-path)
             ERR_MSG="Invalid path to bin: $2"
@@ -92,8 +92,14 @@ get_success() {
 get_package_v() {
     printf "Checking Package version... "
 
-    if [ -f VERSION ] && [ -s VERSION ]; then
-        CRYPTO_VERSION=$(cat VERSION)
+    if ! [ -z "$IS_DEP" ]; then
+        VERSION_FILE_PATH="$IS_DEP/../VERSION"
+    else
+        VERSION_FILE_PATH="VERSION"
+    fi
+
+    if [ -f $VERSION_FILE_PATH ] && [ -s $VERSION_FILE_PATH ]; then
+        CRYPTO_VERSION=$(cat $VERSION_FILE_PATH)
         get_success
     else
         get_err "package-v" "No VERSION file"
@@ -198,7 +204,7 @@ cp_ext() {
         if ! [ -z "$IS_DEP" ]; then
             PATH_TO_BINS_="$IS_DEP/$PATH_TO_BINS"
         else
-            PATH_TO_BINS_="$PATH_TO_BINS"
+            PATH_TO_BINS_="_extensions/$PATH_TO_BINS"
         fi
 
         PATH_TO_BIN="${PATH_TO_BINS_}/${OS_}/php${PHP_VERSION_SHORT}"

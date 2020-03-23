@@ -51,7 +51,7 @@ This package is available for PHP versions **7.2**, **7.3** and **7.4**.
 
 - **Step #2.** Add the crypto extensions into your server with the following code and follow the instructions below:
      ```bash
-     sh vendor/virgil/crypto-wrapper/_extensions/setup.sh -all
+     sh vendor/virgil/crypto-wrapper/_extensions/setup.sh -all -vendor
      ```
      
 ## Additional information
