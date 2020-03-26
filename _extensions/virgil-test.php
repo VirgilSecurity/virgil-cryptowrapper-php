@@ -7,7 +7,7 @@ function getPHPVersion(): string
 
 function getCryptoVersion(): string
 {
-    return file_get_contents(__DIR__ . DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR."VERSION");
+    return file_get_contents(__DIR__ . DIRECTORY_SEPARATOR."..". DIRECTORY_SEPARATOR."VERSION");
 }
 
 function getExtensionsNamesAsArray(): array

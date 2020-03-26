@@ -20,11 +20,8 @@ check_input() {
         get_err "input_null"
     fi
 
-    LIST_EXT=""
-
     case "$1" in
         "-all")
-            LIST_EXT="vscf_foundation_php vsce_phe_php vscp_pythia_php"
             ;;
         *)
             get_err "input_invalid" "$1"
@@ -35,8 +32,11 @@ check_input() {
         "-vendor")
             IS_DEP="$(dirname $0)"
             ;;
-        *)
+        "")
             IS_DEP=""
+            ;;
+        *)
+            get_err "input_vendor" "$2"
             ;;
     esac
 
@@ -53,7 +53,7 @@ get_err() {
             ERR_MSG="Invalid OS: $2"
             ;;
         package-v)
-            ERR_MSG="VERSION file not found or empty"
+            ERR_MSG="VERSION_CRYPTO file not found or empty"
             ;;
         ext-input-path)
             ERR_MSG="Invalid path to bin: $2"
@@ -68,10 +68,13 @@ get_err() {
             ERR_MSG="Cannot copy $2 to the $3"
             ;;
         input_null)
-            ERR_MSG="Project not specified"
+            ERR_MSG="Projects not specified. Add flag \"-all\""
+            ;;
+        input_vendor)
+            ERR_MSG="Invalid flag: '$2'. Add flag \"-vendor\"" 
             ;;
         input_invalid)
-            ERR_MSG="Invalid project: $2"
+            ERR_MSG="Invalid flag: '$2'. Add flag \"-all\""
             ;;
         *)
             ERR_MSG="Internal error: $1"
@@ -90,7 +93,7 @@ get_success() {
 }
 
 get_package_v() {
-    printf "Checking Package version... "
+    printf "Checking package version... "
 
     if ! [ -z "$IS_DEP" ]; then
         VERSION_FILE_PATH="$IS_DEP/../VERSION"
@@ -99,7 +102,7 @@ get_package_v() {
     fi
 
     if [ -f $VERSION_FILE_PATH ] && [ -s $VERSION_FILE_PATH ]; then
-        CRYPTO_VERSION=$(cat $VERSION_FILE_PATH)
+        VERSION=$(cat $VERSION_FILE_PATH)
         get_success
     else
         get_err "package-v" "No VERSION file"
@@ -197,29 +200,22 @@ get_config() {
 }
 
 cp_ext() {
-    for EXT in $LIST_EXT
+    if ! [ -z "$IS_DEP" ]; then
+        PATH_TO_BINS_="$IS_DEP/$PATH_TO_BINS"
+    else
+        PATH_TO_BINS_="_extensions/$PATH_TO_BINS"
+    fi
+
+    PATH_TO_BINS="${PATH_TO_BINS_}/${OS_}/php${PHP_VERSION_SHORT}"
+    
+    for BIN in "$PATH_TO_BINS"/*.so
     do
-        EXT_FULL_NAME="${EXT}${PHP_VERSION_SHORT}_${CRYPTO_VERSION}.so"
+        printf "Copying ${BIN} to the ${EXTENSION_DIR}/... "
 
-        if ! [ -z "$IS_DEP" ]; then
-            PATH_TO_BINS_="$IS_DEP/$PATH_TO_BINS"
-        else
-            PATH_TO_BINS_="_extensions/$PATH_TO_BINS"
-        fi
-
-        PATH_TO_BIN="${PATH_TO_BINS_}/${OS_}/php${PHP_VERSION_SHORT}"
-        FULL_PATH_TO_BIN="${PATH_TO_BIN}/${EXT_FULL_NAME}"
-
-        if ! [ -f ${FULL_PATH_TO_BIN} ]; then
-            get_err "ext-input-path" $FULL_PATH_TO_BIN
-        fi
-
-        printf "Copying ${FULL_PATH_TO_BIN} to the ${EXTENSION_DIR}/${EXT_FULL_NAME}... "
-
-        if sudo cp "$FULL_PATH_TO_BIN" "${EXTENSION_DIR}/${EXT_FULL_NAME}"; then
+        if sudo cp "$BIN" "${EXTENSION_DIR}"; then
             get_success
         else
-            get_err "cp-ext" "$EXT_FULL_NAME" "$EXTENSION_DIR"
+            get_err "cp-ext" "$BIN" "${EXTENSION_DIR}"
         fi
     done
 }
@@ -227,9 +223,9 @@ cp_ext() {
 cp_ini() {
     for PID in $PHP_INI_DIR
     do
-        printf "Copying ${PATH_TO_BIN}/${INI_FILE_NAME} file to the $PID/${INI_FILE_NAME}... "
+        printf "Copying ${PATH_TO_BINS}/${INI_FILE_NAME} file to the $PID/${INI_FILE_NAME}... "
 
-        if sudo cp "${PATH_TO_BIN}/${INI_FILE_NAME}" "$PID/${INI_FILE_NAME}"; then
+        if sudo cp "${PATH_TO_BINS}/${INI_FILE_NAME}" "$PID/${INI_FILE_NAME}"; then
             get_success
         else
             get_err "cp-ini" "${INI_FILE_NAME}" "$PID"
