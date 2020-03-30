@@ -68,19 +68,19 @@ class UokmsServer
     }
 
     /**
-    * @param Virgil\CryptoWrapper\Foundation\Random $random
+    * @param \Virgil\CryptoWrapper\Foundation\Random $random
     * @return void
     */
-    public function useRandom(Virgil\CryptoWrapper\Foundation\Random $random): void
+    public function useRandom(\Virgil\CryptoWrapper\Foundation\Random $random): void
     {
         vsce_uokms_server_use_random_php($this->ctx, $random->getCtx());
     }
 
     /**
-    * @param Virgil\CryptoWrapper\Foundation\Random $operationRandom
+    * @param \Virgil\CryptoWrapper\Foundation\Random $operationRandom
     * @return void
     */
-    public function useOperationRandom(Virgil\CryptoWrapper\Foundation\Random $operationRandom): void
+    public function useOperationRandom(\Virgil\CryptoWrapper\Foundation\Random $operationRandom): void
     {
         vsce_uokms_server_use_operation_random_php($this->ctx, $operationRandom->getCtx());
     }
@@ -97,7 +97,7 @@ class UokmsServer
     }
 
     /**
-    * Generates new NIST Pythia-256 server key pair for some client
+    * Generates new NIST P-256 server key pair for some client
     *
     * @return array
     * @throws \Exception
