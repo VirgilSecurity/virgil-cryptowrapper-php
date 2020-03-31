@@ -3,10 +3,10 @@
 [![Build Status](https://api.travis-ci.com/VirgilSecurity/virgil-cryptowrapper-php.svg?branch=master)](https://travis-ci.com/VirgilSecurity/virgil-cryptowrapper-php)
 [![GitHub license](https://img.shields.io/badge/license-BSD%203--Clause-blue.svg)](https://github.com/VirgilSecurity/virgil/blob/master/LICENSE)
 
-### [Introduction](#introduction) | [Features](#features) | [Installation](#installation) | [Docs](#docs) | [License](#license) | [Contacts](#support)
+[Introduction](#introduction) | [Features](#features) | [Installation](#installation) | [Docs](#docs) | [License](#license) | [Contacts](#support)
 
 ## Introduction
-This library is designed to be a small, flexible and convenient wrapper for a variety of crypto algorithms. So it can be used in a small microcontroller as well as in a high load server application. Also, it provides a bunch of custom hybrid algorithms that combine different crypto algorithms to solve common complex cryptographic problems in an easy way. That eliminates requirement for developers to have a strong cryptographic skills.
+This library is designed to be a small, flexible and convenient wrapper for a variety of crypto algorithms. So it can be used in a small microcontroller as well as in a high load server application. Also, it provides a bunch of custom hybrid algorithms that combine different crypto algorithms to solve common complex cryptographic problems in an easy way. That eliminates requirement for developers to have strong cryptographic skills.
 
 Virgil Security PHP Crypto Library Wrapper is a wrapper for [Virgil Security Crypto Library](https://github.com/VirgilSecurity/virgil-crypto-c).
 
@@ -56,7 +56,7 @@ This package is available for PHP versions **7.2**, **7.3** and **7.4**.
      
 ## Additional information
 
-### Manual adding the crypto extension into your server
+### Manual adding the crypto extension to your server
 
 - Execute on your server [virgil-test.php](_extensions/virgil-test.php) file.
 
@@ -97,8 +97,9 @@ Our web stack is: *Linux, nginx, php7.2-fpm*
   ![](_extensions/_help/03.png)
 
 ## Docs
+
 - [Crypto Core Library](https://github.com/VirgilSecurity/virgil-crypto-c)
-- [More usage examples](https://developer.virgilsecurity.com/docs/how-to#cryptography)
+- [Developer Documentation](https://developer.virgilsecurity.com/)
 
 ## License
 
