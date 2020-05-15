@@ -39,7 +39,6 @@ namespace Virgil\CryptoWrapperTests\Foundation;
 
 use Virgil\CryptoWrapper\Foundation\Kdf1;
 use Virgil\CryptoWrapper\Foundation\Sha256;
-use Virgil\CryptoWrapper\Pythia\Pythia;
 
 class Kdf1Test extends \PHPUnit\Framework\TestCase
 {
@@ -96,6 +95,7 @@ class Kdf1Test extends \PHPUnit\Framework\TestCase
         $this->assertEquals(strlen($vector3KeyBytes), strlen($key));
         $this->assertEquals($vector3KeyBytes, $key);
     }
+
 
     /**
      * @param string $string
