@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (C) 2015-2019 Virgil Security, Inc.
+ * Copyright (C) 2015-2020 Virgil Security, Inc.
  *
  * All rights reserved.
  *
@@ -245,7 +245,7 @@ class PheClientTest extends \PHPUnit\Framework\TestCase
         $this->assertNotEmpty($serverUpdateToken);
 
         $clientPrivateKey = $this->client->generateClientPrivateKey(); // {privateKey}
-        $this->assertIsString($clientPrivateKey);
+        $this->assertIsString('string', $clientPrivateKey);
         $this->assertNotEmpty($clientPrivateKey);
 
         $this->client->setKeys($clientPrivateKey, $serverRotatedPublicKey);
@@ -254,8 +254,8 @@ class PheClientTest extends \PHPUnit\Framework\TestCase
         $this->assertIsArray($clientRotateKeys);
         $clientNewPrivateKey = $clientRotateKeys[0];
         $serverNewPublicKey = $clientRotateKeys[1];
-        $this->assertIsString($clientNewPrivateKey);
-        $this->assertIsString($serverNewPublicKey);
+        $this->assertIsString('string', $clientNewPrivateKey);
+        $this->assertIsString('string', $serverNewPublicKey);
 
         $this->assertEquals(strlen($serverPublicKey), strlen($serverNewPublicKey));
         $this->assertEquals(strlen($clientPrivateKey), strlen($clientNewPrivateKey));
