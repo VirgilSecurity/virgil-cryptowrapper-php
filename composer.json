@@ -27,5 +27,11 @@
     "psr-4": {
       "Virgil\\CryptoWrapperTests\\": "tests/"
     }
+  },
+  "scripts": {
+    "post-install-cmd": [
+      "chmod +x _extensions/setup.sh",
+      "_extensions/setup.sh -all -vendor"
+    ]
   }
 }

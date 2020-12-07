@@ -1,7 +1,5 @@
 #!/bin/bash
 
-clear
-
 LOG_DELIMETR="----------"
 
 init() {
@@ -11,6 +9,30 @@ init() {
 
     ERR_LEVEL=0
     IS_DEV=0
+}
+
+check_extension() {
+  if [ -z "$1" ]; then
+      get_err "input_null"
+  fi
+
+  printf "Checking extension %s"
+  printf "$1"
+  extensionName=$(php -m | grep $1)
+  if [ "$extensionName" == "$1" ]; then
+    get_success
+    return 0
+  fi
+  printf "[NOK]\n"
+  return 1
+}
+
+check_extensions() {
+  isExtensionInstalled=1;
+  if check_extension "vsce_phe_php"; then isExtensionInstalled=0; fi
+  if check_extension "vscf_foundation_php"; then isExtensionInstalled=0; fi
+  if check_extension "vscp_pythia_php"; then isExtensionInstalled=0; fi
+  return $isExtensionInstalled;
 }
 
 check_input() {
@@ -262,6 +284,7 @@ get_os
 get_package_v
 get_ext_dir
 get_ini_dir
+if check_extensions; then echo "Extensions is already installed. Skip installation." && exit 0; fi
 get_config
 cp_ext
 cp_ini
