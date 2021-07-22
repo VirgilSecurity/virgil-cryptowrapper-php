@@ -18,6 +18,5 @@ install:
   - curl -sS https://getcomposer.org/installer -o composer-setup.php
   - sudo php composer-setup.php --install-dir=/usr/local/bin --filename=composer
 before_script:
-  - sh $TRAVIS_BUILD_DIR/_extensions/setup.sh -all
   - composer install
 script: vendor/bin/phpunit --configuration phpunit.xml
