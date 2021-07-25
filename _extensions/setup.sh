@@ -142,7 +142,7 @@ get_php_v() {
     PHP_VERSION_MINOR=`echo $PHP_VERSION_STRING | cut -f 2 -d'.'`
     PHP_VERSION_SHORT=$PHP_VERSION_MAJOR.$PHP_VERSION_MINOR
 
-    if [ $PHP_VERSION_SHORT != "7.2" ] && [ $PHP_VERSION_SHORT != "7.3" ] && [ $PHP_VERSION_SHORT != "7.4" ]; then
+    if [ $PHP_VERSION_SHORT != "7.3" ] && [ $PHP_VERSION_SHORT != "7.4" ] && [ $PHP_VERSION_SHORT != "8.0" ]; then
         get_err "php-v" "$PHP_VERSION_SHORT"
     else
         get_success
@@ -152,13 +152,14 @@ get_php_v() {
 get_os() {
     printf "Checking OS... "
     OS=$(uname)
+    ARCH=$(uname -m)
 
     case $OS in
          Linux)
-              OS_="lin"
+              OS_="linux_${ARCH}"
               ;;
          Darwin)
-              OS_="mac"
+              OS_="darwin_${ARCH}"
               ;;
          *)
               OS_=""
