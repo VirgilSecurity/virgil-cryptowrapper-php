@@ -41,7 +41,7 @@ Implementation of the [Pythia](http://pages.cs.wisc.edu/~ace/papers/pythia-full.
 
 ## Installation
 
-This package is available for PHP versions **7.2**, **7.3** and **7.4**.
+This package is available for PHP versions: **7.3**, **7.4**, **8.0**.
 
 - **Step #1.** Install the crypto wrapper with the following code:
 
