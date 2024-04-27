@@ -93,7 +93,7 @@ get_err() {
             ERR_MSG="Projects not specified. Add flag \"-all\""
             ;;
         input_vendor)
-            ERR_MSG="Invalid flag: '$2'. Add flag \"-vendor\"" 
+            ERR_MSG="Invalid flag: '$2'. Add flag \"-vendor\""
             ;;
         input_invalid)
             ERR_MSG="Invalid flag: '$2'. Add flag \"-all\""
@@ -142,7 +142,7 @@ get_php_v() {
     PHP_VERSION_MINOR=`echo $PHP_VERSION_STRING | cut -f 2 -d'.'`
     PHP_VERSION_SHORT=$PHP_VERSION_MAJOR.$PHP_VERSION_MINOR
 
-    if [ $PHP_VERSION_SHORT != "7.3" ] && [ $PHP_VERSION_SHORT != "7.4" ] && [ $PHP_VERSION_SHORT != "8.0" ]; then
+    if [ $PHP_VERSION_SHORT != "8.2" ] && [ $PHP_VERSION_SHORT != "8.3" ] && [ $PHP_VERSION_SHORT != "8.4" ]; then
         get_err "php-v" "$PHP_VERSION_SHORT"
     else
         get_success
@@ -230,7 +230,7 @@ cp_ext() {
     fi
 
     PATH_TO_BINS="${PATH_TO_BINS_}/${OS_}/php${PHP_VERSION_SHORT}"
-    
+
     for BIN in "$PATH_TO_BINS"/*.so
     do
         printf "Copying ${BIN} to the ${EXTENSION_DIR}/... "
