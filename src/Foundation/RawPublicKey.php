@@ -1,6 +1,6 @@
 <?php
 /**
-* Copyright (C) 2015-2020 Virgil Security, Inc.
+* Copyright (C) 2015-2024 Virgil Security, Inc.
 *
 * All rights reserved.
 *
@@ -37,6 +37,8 @@
 
 namespace Virgil\CryptoWrapper\Foundation;
 
+use Exception;
+
 /**
 * Handles interchangeable public key representation.
 */
@@ -44,9 +46,9 @@ class RawPublicKey implements Key, PublicKey
 {
 
     /**
-    * @var
+    * @var mixed
     */
-    private $ctx;
+    private mixed $ctx;
 
     /**
     * Create underlying C context.
@@ -62,7 +64,7 @@ class RawPublicKey implements Key, PublicKey
     * Destroy underlying C context.
     * @return void
     */
-    public function __destructor()
+    public function __destructor(): void
     {
         vscf_raw_public_key_delete_php($this->ctx);
     }
@@ -92,7 +94,7 @@ class RawPublicKey implements Key, PublicKey
     * Return algorithm information that can be used for serialization.
     *
     * @return AlgInfo
-    * @throws \Exception
+    * @throws Exception
     */
     public function algInfo(): AlgInfo
     {

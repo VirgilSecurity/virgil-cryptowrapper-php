@@ -41,49 +41,70 @@ use Virgil\CryptoWrapper\Foundation\Sha256;
 
 class Sha256Test extends \PHPUnit\Framework\TestCase
 {
-    private $sha256;
+    private Sha256 $sha256;
 
-    const SHA256_VECTOR_1_INPUT_BYTES = "";
-    const SHA256_VECTOR_1_DIGEST_BYTES = "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855";
-    const SHA256_VECTOR_2_INPUT_BYTES = "BD";
-    const SHA256_VECTOR_2_DIGEST_BYTES = "68325720AABD7C82F30F554B313D0570C95ACCBB7DC4B5AAE11204C08FFE732B";
-    const SHA256_VECTOR_3_INPUT_BYTES = "5FD4";
-    const SHA256_VECTOR_3_DIGEST_BYTES = "7C4FBF484498D21B487B9D61DE8914B2EADAF2698712936D47C3ADA2558F6788";
+    const string SHA256_VECTOR_1_INPUT_BYTES = "";
+    const string SHA256_VECTOR_1_DIGEST_BYTES = "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855";
+    const string SHA256_VECTOR_2_INPUT_BYTES = "BD";
+    const string SHA256_VECTOR_2_DIGEST_BYTES = "68325720AABD7C82F30F554B313D0570C95ACCBB7DC4B5AAE11204C08FFE732B";
+    const string SHA256_VECTOR_3_INPUT_BYTES = "5FD4";
+    const string SHA256_VECTOR_3_DIGEST_BYTES = "7C4FBF484498D21B487B9D61DE8914B2EADAF2698712936D47C3ADA2558F6788";
 
+    /**
+     * @return void
+     */
     protected function setUp(): void
     {
         $this->sha256 = new Sha256();
     }
 
+    /**
+     * @return void
+     */
     protected function tearDown(): void
     {
         unset($this->sha256);
     }
 
+    /**
+     * @return void
+     */
     public function test_Sha256_hashEmptyString(): void
     {
         $res = $this->sha256::hash(self::SHA256_VECTOR_1_INPUT_BYTES);
         $this->assertEquals(base64_decode("47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU="), $res);
     }
 
+    /**
+     * @return void
+     */
     public function test_Sha256_hashEmptyBytes(): void
     {
         $res = $this->sha256::hash(self::SHA256_VECTOR_1_INPUT_BYTES);
         $this->assertEquals($res, self::unhexlify(self::SHA256_VECTOR_1_DIGEST_BYTES));
     }
 
+    /**
+     * @return void
+     */
     public function test_Sha256_hashVector2(): void
     {
         $res = $this->sha256::hash(self::unhexlify(self::SHA256_VECTOR_2_INPUT_BYTES));
         $this->assertEquals($res, self::unhexlify(self::SHA256_VECTOR_2_DIGEST_BYTES));
     }
 
+    /**
+     * @return void
+     */
     public function test_Sha256_hasgVector3Success(): void
     {
         $res = $this->sha256::hash(self::unhexlify(self::SHA256_VECTOR_3_INPUT_BYTES));
         $this->assertEquals($res, self::unhexlify(self::SHA256_VECTOR_3_DIGEST_BYTES));
     }
 
+    /**
+     * @return void
+     */
     public function test_Sha256_hashStreamVector1(): void
     {
         $sha256 = $this->sha256;
@@ -96,6 +117,9 @@ class Sha256Test extends \PHPUnit\Framework\TestCase
         $this->assertEquals(self::unhexlify(self::SHA256_VECTOR_1_DIGEST_BYTES), $digest);
     }
 
+    /**
+     * @return void
+     */
     public function test_Sha256_hashStreamVector2(): void
     {
         $sha256 = $this->sha256;
@@ -108,6 +132,9 @@ class Sha256Test extends \PHPUnit\Framework\TestCase
         $this->assertEquals(self::unhexlify(self::SHA256_VECTOR_2_DIGEST_BYTES), $digest);
     }
 
+    /**
+     * @return void
+     */
     public function test_Sha256_hashStreamVector3(): void
     {
         $sha256 = $this->sha256;

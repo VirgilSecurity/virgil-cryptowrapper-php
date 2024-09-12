@@ -1,6 +1,6 @@
 <?php
 /**
-* Copyright (C) 2015-2020 Virgil Security, Inc.
+* Copyright (C) 2015-2024 Virgil Security, Inc.
 *
 * All rights reserved.
 *
@@ -37,6 +37,9 @@
 
 namespace Virgil\CryptoWrapper\Phe;
 
+use Exception;
+use Virgil\CryptoWrapper\Foundation\Random;
+
 /**
 * Class for encryption using PHE account key
 * This class is thread-safe.
@@ -45,13 +48,13 @@ class PheCipher
 {
 
     /**
-    * @var
+    * @var mixed
     */
-    private $ctx;
+    private mixed $ctx;
 
-    const SALT_LEN = 32;
-    const KEY_LEN = 32;
-    const NONCE_LEN = 12;
+    const int SALT_LEN = 32;
+    const int KEY_LEN = 32;
+    const int NONCE_LEN = 12;
 
     /**
     * Create underlying C context.
@@ -67,16 +70,16 @@ class PheCipher
     * Destroy underlying C context.
     * @return void
     */
-    public function __destructor()
+    public function __destructor(): void
     {
         vsce_phe_cipher_delete_php($this->ctx);
     }
 
     /**
-    * @param \Virgil\CryptoWrapper\Foundation\Random $random
+    * @param Random $random
     * @return void
     */
-    public function useRandom(\Virgil\CryptoWrapper\Foundation\Random $random): void
+    public function useRandom(Random $random): void
     {
         vsce_phe_cipher_use_random_php($this->ctx, $random->getCtx());
     }
@@ -85,7 +88,7 @@ class PheCipher
     * Setups dependencies with default values.
     *
     * @return void
-    * @throws \Exception
+    * @throws Exception
     */
     public function setupDefaults(): void
     {
@@ -120,7 +123,7 @@ class PheCipher
     * @param string $plainText
     * @param string $accountKey
     * @return string
-    * @throws \Exception
+    * @throws Exception
     */
     public function encrypt(string $plainText, string $accountKey): string
     {
@@ -133,7 +136,7 @@ class PheCipher
     * @param string $cipherText
     * @param string $accountKey
     * @return string
-    * @throws \Exception
+    * @throws Exception
     */
     public function decrypt(string $cipherText, string $accountKey): string
     {
@@ -147,7 +150,7 @@ class PheCipher
     * @param string $additionalData
     * @param string $accountKey
     * @return string
-    * @throws \Exception
+    * @throws Exception
     */
     public function authEncrypt(string $plainText, string $additionalData, string $accountKey): string
     {
@@ -161,7 +164,7 @@ class PheCipher
     * @param string $additionalData
     * @param string $accountKey
     * @return string
-    * @throws \Exception
+    * @throws Exception
     */
     public function authDecrypt(string $cipherText, string $additionalData, string $accountKey): string
     {

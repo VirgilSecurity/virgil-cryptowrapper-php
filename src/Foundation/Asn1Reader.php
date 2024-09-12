@@ -1,6 +1,6 @@
 <?php
 /**
-* Copyright (C) 2015-2020 Virgil Security, Inc.
+* Copyright (C) 2015-2024 Virgil Security, Inc.
 *
 * All rights reserved.
 *
@@ -37,6 +37,8 @@
 
 namespace Virgil\CryptoWrapper\Foundation;
 
+use Exception;
+
 /**
 * Provides interface to the ASN.1 reader.
 * Note, that all "read" methods move reading position forward.
@@ -71,7 +73,7 @@ interface Asn1Reader extends Ctx
     * Return error code.
     *
     * @return void
-    * @throws \Exception
+    * @throws Exception
     */
     public function status(): void;
 

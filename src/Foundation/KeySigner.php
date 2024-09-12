@@ -1,6 +1,6 @@
 <?php
 /**
-* Copyright (C) 2015-2020 Virgil Security, Inc.
+* Copyright (C) 2015-2024 Virgil Security, Inc.
 *
 * All rights reserved.
 *
@@ -37,6 +37,8 @@
 
 namespace Virgil\CryptoWrapper\Foundation;
 
+use Exception;
+
 /**
 * Provide an interface for signing and verifying data digest
 * with asymmetric keys.
@@ -68,7 +70,7 @@ interface KeySigner extends Ctx
     * @param AlgId $hashId
     * @param string $digest
     * @return string
-    * @throws \Exception
+    * @throws Exception
     */
     public function signHash(PrivateKey $privateKey, AlgId $hashId, string $digest): string;
 

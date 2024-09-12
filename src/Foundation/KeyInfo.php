@@ -1,6 +1,6 @@
 <?php
 /**
-* Copyright (C) 2015-2020 Virgil Security, Inc.
+* Copyright (C) 2015-2024 Virgil Security, Inc.
 *
 * All rights reserved.
 *
@@ -41,9 +41,9 @@ class KeyInfo
 {
 
     /**
-    * @var
+    * @var mixed
     */
-    private $ctx;
+    private mixed $ctx;
 
     /**
     * Build key information based on the generic algorithm information.
@@ -71,7 +71,7 @@ class KeyInfo
     * Destroy underlying C context.
     * @return void
     */
-    public function __destructor()
+    public function __destructor(): void
     {
         vscf_key_info_delete_php($this->ctx);
     }

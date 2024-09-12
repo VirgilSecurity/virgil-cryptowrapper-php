@@ -1,6 +1,6 @@
 <?php
 /**
-* Copyright (C) 2015-2020 Virgil Security, Inc.
+* Copyright (C) 2015-2024 Virgil Security, Inc.
 *
 * All rights reserved.
 *
@@ -45,7 +45,7 @@ use MyCLabs\Enum\Enum;
 class CipherState extends Enum
 {
 
-    private const INITIAL = 0;
-    private const ENCRYPTION = 1;
-    private const DECRYPTION = 2;
+    private const int INITIAL = 0;
+    private const int ENCRYPTION = 1;
+    private const int DECRYPTION = 2;
 }

@@ -1,6 +1,6 @@
 <?php
 /**
-* Copyright (C) 2015-2020 Virgil Security, Inc.
+* Copyright (C) 2015-2024 Virgil Security, Inc.
 *
 * All rights reserved.
 *
@@ -37,6 +37,8 @@
 
 namespace Virgil\CryptoWrapper\Foundation;
 
+use Exception;
+
 /**
 * Contains private part of the key.
 */
@@ -47,7 +49,7 @@ interface PrivateKey extends Ctx
     * Extract public key from the private key.
     *
     * @return PublicKey
-    * @throws \Exception
+    * @throws Exception
     */
     public function extractPublicKey(): PublicKey;
 }

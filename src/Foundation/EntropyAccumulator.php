@@ -1,6 +1,6 @@
 <?php
 /**
-* Copyright (C) 2015-2020 Virgil Security, Inc.
+* Copyright (C) 2015-2024 Virgil Security, Inc.
 *
 * All rights reserved.
 *
@@ -37,6 +37,8 @@
 
 namespace Virgil\CryptoWrapper\Foundation;
 
+use Exception;
+
 /**
 * Implementation based on a simple entropy accumulator.
 */
@@ -44,11 +46,11 @@ class EntropyAccumulator implements EntropySource
 {
 
     /**
-    * @var
+    * @var mixed
     */
-    private $ctx;
+    private mixed $ctx;
 
-    const SOURCES_MAX = 15;
+    const int SOURCES_MAX = 15;
 
     /**
     * Create underlying C context.
@@ -64,7 +66,7 @@ class EntropyAccumulator implements EntropySource
     * Destroy underlying C context.
     * @return void
     */
-    public function __destructor()
+    public function __destructor(): void
     {
         vscf_entropy_accumulator_delete_php($this->ctx);
     }
@@ -108,7 +110,7 @@ class EntropyAccumulator implements EntropySource
     *
     * @param int $len
     * @return string
-    * @throws \Exception
+    * @throws Exception
     */
     public function gather(int $len): string
     {

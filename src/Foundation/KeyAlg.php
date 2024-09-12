@@ -1,6 +1,6 @@
 <?php
 /**
-* Copyright (C) 2015-2020 Virgil Security, Inc.
+* Copyright (C) 2015-2024 Virgil Security, Inc.
 *
 * All rights reserved.
 *
@@ -37,6 +37,8 @@
 
 namespace Virgil\CryptoWrapper\Foundation;
 
+use Exception;
+
 /**
 * Common information about asymmetric key algorithm.
 */
@@ -49,7 +51,7 @@ interface KeyAlg extends Ctx
     *
     * @param Key $key
     * @return PrivateKey
-    * @throws \Exception
+    * @throws Exception
     */
     public function generateEphemeralKey(Key $key): PrivateKey;
 
@@ -65,7 +67,7 @@ interface KeyAlg extends Ctx
     *
     * @param RawPublicKey $rawKey
     * @return PublicKey
-    * @throws \Exception
+    * @throws Exception
     */
     public function importPublicKey(RawPublicKey $rawKey): PublicKey;
 
@@ -93,7 +95,7 @@ interface KeyAlg extends Ctx
     *
     * @param RawPrivateKey $rawKey
     * @return PrivateKey
-    * @throws \Exception
+    * @throws Exception
     */
     public function importPrivateKey(RawPrivateKey $rawKey): PrivateKey;
 

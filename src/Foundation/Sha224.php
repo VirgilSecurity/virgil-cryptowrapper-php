@@ -1,6 +1,6 @@
 <?php
 /**
-* Copyright (C) 2015-2020 Virgil Security, Inc.
+* Copyright (C) 2015-2024 Virgil Security, Inc.
 *
 * All rights reserved.
 *
@@ -37,6 +37,8 @@
 
 namespace Virgil\CryptoWrapper\Foundation;
 
+use Exception;
+
 /**
 * This is MbedTLS implementation of SHA224.
 */
@@ -44,12 +46,12 @@ class Sha224 implements Alg, Hash
 {
 
     /**
-    * @var
+    * @var mixed
     */
-    private $ctx;
+    private mixed $ctx;
 
-    const DIGEST_LEN = 28;
-    const BLOCK_LEN = 64;
+    const int DIGEST_LEN = 28;
+    const int BLOCK_LEN = 64;
 
     /**
     * Create underlying C context.
@@ -65,7 +67,7 @@ class Sha224 implements Alg, Hash
     * Destroy underlying C context.
     * @return void
     */
-    public function __destructor()
+    public function __destructor(): void
     {
         vscf_sha224_delete_php($this->ctx);
     }
@@ -85,7 +87,7 @@ class Sha224 implements Alg, Hash
     * Produce object with algorithm information and configuration parameters.
     *
     * @return AlgInfo
-    * @throws \Exception
+    * @throws Exception
     */
     public function produceAlgInfo(): AlgInfo
     {
@@ -98,7 +100,7 @@ class Sha224 implements Alg, Hash
     *
     * @param AlgInfo $algInfo
     * @return void
-    * @throws \Exception
+    * @throws Exception
     */
     public function restoreAlgInfo(AlgInfo $algInfo): void
     {

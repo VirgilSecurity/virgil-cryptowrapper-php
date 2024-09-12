@@ -1,6 +1,6 @@
 <?php
 /**
-* Copyright (C) 2015-2020 Virgil Security, Inc.
+* Copyright (C) 2015-2024 Virgil Security, Inc.
 *
 * All rights reserved.
 *
@@ -37,6 +37,8 @@
 
 namespace Virgil\CryptoWrapper\Foundation;
 
+use Exception;
+
 /**
 * Provide DER deserializer of algorithm information.
 */
@@ -46,7 +48,7 @@ class AlgInfoDerDeserializer implements AlgInfoDeserializer
     /**
     * @var
     */
-    private $ctx;
+    private mixed $ctx;
 
     /**
     * Create underlying C context.
@@ -62,7 +64,7 @@ class AlgInfoDerDeserializer implements AlgInfoDeserializer
     * Destroy underlying C context.
     * @return void
     */
-    public function __destructor()
+    public function __destructor(): void
     {
         vscf_alg_info_der_deserializer_delete_php($this->ctx);
     }
@@ -92,7 +94,7 @@ class AlgInfoDerDeserializer implements AlgInfoDeserializer
     * an input buffer.
     *
     * @return AlgInfo
-    * @throws \Exception
+    * @throws Exception
     */
     public function deserializeInplace(): AlgInfo
     {
@@ -105,7 +107,7 @@ class AlgInfoDerDeserializer implements AlgInfoDeserializer
     *
     * @param string $data
     * @return AlgInfo
-    * @throws \Exception
+    * @throws Exception
     */
     public function deserialize(string $data): AlgInfo
     {

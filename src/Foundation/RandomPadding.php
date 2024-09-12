@@ -1,6 +1,6 @@
 <?php
 /**
-* Copyright (C) 2015-2020 Virgil Security, Inc.
+* Copyright (C) 2015-2024 Virgil Security, Inc.
 *
 * All rights reserved.
 *
@@ -37,6 +37,8 @@
 
 namespace Virgil\CryptoWrapper\Foundation;
 
+use Exception;
+
 /**
 * Append a random number of padding bytes to a data.
 */
@@ -44,12 +46,13 @@ class RandomPadding implements Alg, Padding
 {
 
     /**
-    * @var
+    * @var mixed
     */
-    private $ctx;
+    private mixed $ctx;
 
-    const PADDING_SIZE_LEN = 4;
-    const PADDING_LEN_MIN = vscf_random_padding_PADDING_SIZE_LEN + 1;
+    const int PADDING_SIZE_LEN = 4;
+    /** @todo: is it correct const ? */
+    const int PADDING_LEN_MIN = vscf_random_padding_PADDING_SIZE_LEN + 1;
 
     /**
     * Create underlying C context.
@@ -65,7 +68,7 @@ class RandomPadding implements Alg, Padding
     * Destroy underlying C context.
     * @return void
     */
-    public function __destructor()
+    public function __destructor(): void
     {
         vscf_random_padding_delete_php($this->ctx);
     }
@@ -94,7 +97,7 @@ class RandomPadding implements Alg, Padding
     * Produce object with algorithm information and configuration parameters.
     *
     * @return AlgInfo
-    * @throws \Exception
+    * @throws Exception
     */
     public function produceAlgInfo(): AlgInfo
     {
@@ -107,7 +110,7 @@ class RandomPadding implements Alg, Padding
     *
     * @param AlgInfo $algInfo
     * @return void
-    * @throws \Exception
+    * @throws Exception
     */
     public function restoreAlgInfo(AlgInfo $algInfo): void
     {
@@ -183,7 +186,7 @@ class RandomPadding implements Alg, Padding
     * Accomplish data processing and return padding.
     *
     * @return string
-    * @throws \Exception
+    * @throws Exception
     */
     public function finishDataProcessing(): string
     {
@@ -227,7 +230,7 @@ class RandomPadding implements Alg, Padding
     * Accomplish padded data processing and return left data without a padding.
     *
     * @return string
-    * @throws \Exception
+    * @throws Exception
     */
     public function finishPaddedDataProcessing(): string
     {

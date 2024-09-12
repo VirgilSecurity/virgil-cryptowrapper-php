@@ -1,6 +1,6 @@
 <?php
 /**
-* Copyright (C) 2015-2020 Virgil Security, Inc.
+* Copyright (C) 2015-2024 Virgil Security, Inc.
 *
 * All rights reserved.
 *
@@ -37,6 +37,8 @@
 
 namespace Virgil\CryptoWrapper\Foundation;
 
+use Exception;
+
 /**
 * Verify data of any size.
 * Compatible with the class "signer".
@@ -45,9 +47,9 @@ class Verifier
 {
 
     /**
-    * @var
+    * @var mixed
     */
-    private $ctx;
+    private mixed $ctx;
 
     /**
     * Create underlying C context.
@@ -63,7 +65,7 @@ class Verifier
     * Destroy underlying C context.
     * @return void
     */
-    public function __destructor()
+    public function __destructor(): void
     {
         vscf_verifier_delete_php($this->ctx);
     }
@@ -73,7 +75,7 @@ class Verifier
     *
     * @param string $signature
     * @return void
-    * @throws \Exception
+    * @throws Exception
     */
     public function reset(string $signature): void
     {

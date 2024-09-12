@@ -1,6 +1,6 @@
 <?php
 /**
-* Copyright (C) 2015-2020 Virgil Security, Inc.
+* Copyright (C) 2015-2024 Virgil Security, Inc.
 *
 * All rights reserved.
 *
@@ -37,6 +37,8 @@
 
 namespace Virgil\CryptoWrapper\Foundation;
 
+use Exception;
+
 /**
 * Common interface to get random data.
 */
@@ -49,7 +51,7 @@ interface Random extends Ctx
     *
     * @param int $dataLen
     * @return string
-    * @throws \Exception
+    * @throws Exception
     */
     public function random(int $dataLen): string;
 
@@ -57,7 +59,7 @@ interface Random extends Ctx
     * Retrieve new seed data from the entropy sources.
     *
     * @return void
-    * @throws \Exception
+    * @throws Exception
     */
     public function reseed(): void;
 }

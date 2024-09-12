@@ -1,6 +1,6 @@
 <?php
 /**
-* Copyright (C) 2015-2020 Virgil Security, Inc.
+* Copyright (C) 2015-2024 Virgil Security, Inc.
 *
 * All rights reserved.
 *
@@ -37,6 +37,8 @@
 
 namespace Virgil\CryptoWrapper\Foundation;
 
+use Exception;
+
 /**
 * RSA implementation.
 */
@@ -44,14 +46,14 @@ class Rsa implements KeyAlg, KeyCipher, KeySigner
 {
 
     /**
-    * @var
+    * @var mixed
     */
-    private $ctx;
+    private mixed $ctx;
 
-    const CAN_IMPORT_PUBLIC_KEY = true;
-    const CAN_EXPORT_PUBLIC_KEY = true;
-    const CAN_IMPORT_PRIVATE_KEY = true;
-    const CAN_EXPORT_PRIVATE_KEY = true;
+    const bool CAN_IMPORT_PUBLIC_KEY = true;
+    const bool CAN_EXPORT_PUBLIC_KEY = true;
+    const bool CAN_IMPORT_PRIVATE_KEY = true;
+    const bool CAN_EXPORT_PRIVATE_KEY = true;
 
     /**
     * Create underlying C context.
@@ -67,7 +69,7 @@ class Rsa implements KeyAlg, KeyCipher, KeySigner
     * Destroy underlying C context.
     * @return void
     */
-    public function __destructor()
+    public function __destructor(): void
     {
         vscf_rsa_delete_php($this->ctx);
     }
@@ -85,7 +87,7 @@ class Rsa implements KeyAlg, KeyCipher, KeySigner
     * Setup predefined values to the uninitialized class dependencies.
     *
     * @return void
-    * @throws \Exception
+    * @throws Exception
     */
     public function setupDefaults(): void
     {
@@ -98,7 +100,7 @@ class Rsa implements KeyAlg, KeyCipher, KeySigner
     *
     * @param int $bitlen
     * @return PrivateKey
-    * @throws \Exception
+    * @throws Exception
     */
     public function generateKey(int $bitlen): PrivateKey
     {
@@ -112,7 +114,7 @@ class Rsa implements KeyAlg, KeyCipher, KeySigner
     *
     * @param Key $key
     * @return PrivateKey
-    * @throws \Exception
+    * @throws Exception
     */
     public function generateEphemeralKey(Key $key): PrivateKey
     {
@@ -132,7 +134,7 @@ class Rsa implements KeyAlg, KeyCipher, KeySigner
     *
     * @param RawPublicKey $rawKey
     * @return PublicKey
-    * @throws \Exception
+    * @throws Exception
     */
     public function importPublicKey(RawPublicKey $rawKey): PublicKey
     {
@@ -168,7 +170,7 @@ class Rsa implements KeyAlg, KeyCipher, KeySigner
     *
     * @param RawPrivateKey $rawKey
     * @return PrivateKey
-    * @throws \Exception
+    * @throws Exception
     */
     public function importPrivateKey(RawPrivateKey $rawKey): PrivateKey
     {
@@ -222,7 +224,7 @@ class Rsa implements KeyAlg, KeyCipher, KeySigner
     * @param PublicKey $publicKey
     * @param string $data
     * @return string
-    * @throws \Exception
+    * @throws Exception
     */
     public function encrypt(PublicKey $publicKey, string $data): string
     {
@@ -260,7 +262,7 @@ class Rsa implements KeyAlg, KeyCipher, KeySigner
     * @param PrivateKey $privateKey
     * @param string $data
     * @return string
-    * @throws \Exception
+    * @throws Exception
     */
     public function decrypt(PrivateKey $privateKey, string $data): string
     {
@@ -297,7 +299,7 @@ class Rsa implements KeyAlg, KeyCipher, KeySigner
     * @param AlgId $hashId
     * @param string $digest
     * @return string
-    * @throws \Exception
+    * @throws Exception
     */
     public function signHash(PrivateKey $privateKey, AlgId $hashId, string $digest): string
     {

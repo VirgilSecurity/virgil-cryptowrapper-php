@@ -1,6 +1,6 @@
 <?php
 /**
-* Copyright (C) 2015-2020 Virgil Security, Inc.
+* Copyright (C) 2015-2024 Virgil Security, Inc.
 *
 * All rights reserved.
 *
@@ -37,6 +37,8 @@
 
 namespace Virgil\CryptoWrapper\Foundation;
 
+use Exception;
+
 /**
 * Handle information about an encrypted message and algorithms
 * that was used for encryption.
@@ -45,9 +47,9 @@ class MessageInfo
 {
 
     /**
-    * @var
+    * @var mixed
     */
-    private $ctx;
+    private mixed $ctx;
 
     /**
     * Create underlying C context.
@@ -63,7 +65,7 @@ class MessageInfo
     * Destroy underlying C context.
     * @return void
     */
-    public function __destructor()
+    public function __destructor(): void
     {
         vscf_message_info_delete_php($this->ctx);
     }
@@ -72,7 +74,7 @@ class MessageInfo
     * Return information about algorithm that was used for the data encryption.
     *
     * @return AlgInfo
-    * @throws \Exception
+    * @throws Exception
     */
     public function dataEncryptionAlgInfo(): AlgInfo
     {
@@ -139,7 +141,7 @@ class MessageInfo
     * Return cipher kdf alg info.
     *
     * @return AlgInfo
-    * @throws \Exception
+    * @throws Exception
     */
     public function cipherKdfAlgInfo(): AlgInfo
     {
@@ -161,7 +163,7 @@ class MessageInfo
     * Return cipher padding alg info.
     *
     * @return AlgInfo
-    * @throws \Exception
+    * @throws Exception
     */
     public function cipherPaddingAlgInfo(): AlgInfo
     {

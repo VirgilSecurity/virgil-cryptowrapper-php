@@ -1,6 +1,6 @@
 <?php
 /**
-* Copyright (C) 2015-2020 Virgil Security, Inc.
+* Copyright (C) 2015-2024 Virgil Security, Inc.
 *
 * All rights reserved.
 *
@@ -44,9 +44,9 @@ class SimpleAlgInfo implements AlgInfo
 {
 
     /**
-    * @var
+    * @var mixed
     */
-    private $ctx;
+    private mixed $ctx;
 
     /**
     * Create algorithm info with identificator.
@@ -74,7 +74,7 @@ class SimpleAlgInfo implements AlgInfo
     * Destroy underlying C context.
     * @return void
     */
-    public function __destructor()
+    public function __destructor(): void
     {
         vscf_simple_alg_info_delete_php($this->ctx);
     }

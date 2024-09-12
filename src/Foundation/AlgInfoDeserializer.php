@@ -1,6 +1,6 @@
 <?php
 /**
-* Copyright (C) 2015-2020 Virgil Security, Inc.
+* Copyright (C) 2015-2024 Virgil Security, Inc.
 *
 * All rights reserved.
 *
@@ -37,6 +37,8 @@
 
 namespace Virgil\CryptoWrapper\Foundation;
 
+use Exception;
+
 /**
 * Provide algorithm deserialization.
 */
@@ -48,7 +50,7 @@ interface AlgInfoDeserializer extends Ctx
     *
     * @param string $data
     * @return AlgInfo
-    * @throws \Exception
+    * @throws Exception
     */
     public function deserialize(string $data): AlgInfo;
 }

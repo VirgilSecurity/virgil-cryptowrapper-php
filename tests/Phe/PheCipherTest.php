@@ -37,28 +37,40 @@
 
 namespace Virgil\CryptoWrapperTests\Phe;
 
+use Exception;
 use Virgil\CryptoWrapper\Phe\PheCipher;
 
 class PheCipherTest extends \PHPUnit\Framework\TestCase
 {
-    protected $cipher;
+    protected PheCipher $cipher;
 
+    /**
+     * @return void
+     * @throws Exception
+     */
     protected function setUp(): void
     {
         $this->cipher = new PheCipher();
         $this->cipher->setupDefaults();
     }
 
+    /**
+     * @return void
+     */
     protected function tearDown(): void
     {
         unset($this->cipher);
     }
 
+    /**
+     * @return void
+     * @throws Exception
+     */
     public function test_PheCipher_encryptDecrypt(): void
     {
         $someText = "plain text";
         $accountKey = "oYeAfogdXgjgTcHWKTYUclaFnbeQFFCy";
-        $this->assertEquals(strlen($accountKey), 32);
+        $this->assertEquals(32, strlen($accountKey));
         $encryptedData = $this->cipher->encrypt($someText, $accountKey);
         $decryptedData = $this->cipher->decrypt($encryptedData, $accountKey);
         $this->assertEquals($someText, $decryptedData);

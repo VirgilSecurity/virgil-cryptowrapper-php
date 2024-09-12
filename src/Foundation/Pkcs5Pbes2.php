@@ -1,6 +1,6 @@
 <?php
 /**
-* Copyright (C) 2015-2020 Virgil Security, Inc.
+* Copyright (C) 2015-2024 Virgil Security, Inc.
 *
 * All rights reserved.
 *
@@ -37,6 +37,8 @@
 
 namespace Virgil\CryptoWrapper\Foundation;
 
+use Exception;
+
 /**
 * Virgil Security implementation of the PBES2 (RFC 8018) algorithm.
 */
@@ -44,9 +46,9 @@ class Pkcs5Pbes2 implements Alg, Encrypt, Decrypt
 {
 
     /**
-    * @var
+    * @var mixed
     */
-    private $ctx;
+    private mixed $ctx;
 
     /**
     * Create underlying C context.
@@ -62,7 +64,7 @@ class Pkcs5Pbes2 implements Alg, Encrypt, Decrypt
     * Destroy underlying C context.
     * @return void
     */
-    public function __destructor()
+    public function __destructor(): void
     {
         vscf_pkcs5_pbes2_delete_php($this->ctx);
     }
@@ -111,7 +113,7 @@ class Pkcs5Pbes2 implements Alg, Encrypt, Decrypt
     * Produce object with algorithm information and configuration parameters.
     *
     * @return AlgInfo
-    * @throws \Exception
+    * @throws Exception
     */
     public function produceAlgInfo(): AlgInfo
     {
@@ -124,7 +126,7 @@ class Pkcs5Pbes2 implements Alg, Encrypt, Decrypt
     *
     * @param AlgInfo $algInfo
     * @return void
-    * @throws \Exception
+    * @throws Exception
     */
     public function restoreAlgInfo(AlgInfo $algInfo): void
     {
@@ -136,7 +138,7 @@ class Pkcs5Pbes2 implements Alg, Encrypt, Decrypt
     *
     * @param string $data
     * @return string
-    * @throws \Exception
+    * @throws Exception
     */
     public function encrypt(string $data): string
     {
@@ -170,7 +172,7 @@ class Pkcs5Pbes2 implements Alg, Encrypt, Decrypt
     *
     * @param string $data
     * @return string
-    * @throws \Exception
+    * @throws Exception
     */
     public function decrypt(string $data): string
     {

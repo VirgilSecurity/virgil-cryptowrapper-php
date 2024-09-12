@@ -37,14 +37,19 @@
 
 namespace Virgil\CryptoWrapperTests\Phe;
 
+use Exception;
 use Virgil\CryptoWrapper\Phe\PheClient;
 use Virgil\CryptoWrapper\Phe\PheServer;
 
 class PheServerTest extends \PHPUnit\Framework\TestCase
 {
-    private $client;
-    private $server;
+    private PheClient $client;
+    private PheServer $server;
 
+    /**
+     * @return void
+     * @throws Exception
+     */
     protected function setUp(): void
     {
         $this->server = new PheServer();
@@ -53,12 +58,19 @@ class PheServerTest extends \PHPUnit\Framework\TestCase
         $this->client->setupDefaults();
     }
 
+    /**
+     * @return void
+     */
     protected function tearDown(): void
     {
         unset($this->client);
         unset($this->server);
     }
 
+    /**
+     * @return void
+     * @throws Exception
+     */
     public function test_PheServer_generateKeyPair(): void
     {
         list($privateKey, $publicKey) = $this->server->generateServerKeyPair();
@@ -68,24 +80,36 @@ class PheServerTest extends \PHPUnit\Framework\TestCase
         $this->assertTrue(is_string($publicKey));
     }
 
+    /**
+     * @return void
+     * @throws Exception
+     */
     public function test_PheServer_getEnrollment(): void
     {
         list($privateKey, $publicKey) = $this->server->generateServerKeyPair();
         $enroll = $this->server->getEnrollment($privateKey, $publicKey);
         $this->assertNotNull($enroll);
+        /** todo: is it possible that $this->server->getEnrollment return us not string ? */
         $this->assertTrue(is_string($enroll));
     }
 
+    /**
+     * @return void
+     * @throws Exception
+     */
     public function test_PheServer_verifyPassword(): void
     {
         list($serverPrivateKey, $serverPublicKey) = $this->server->generateServerKeyPair();
+        /** todo: where we use $clientPublicKey ? */
         list($clientPrivateKey, $clientPublicKey) = $this->server->generateServerKeyPair();
         $this->client->setKeys($clientPrivateKey, $serverPublicKey);
         $enrollmentResponse = $this->server->getEnrollment($serverPrivateKey, $serverPublicKey);
+        /** todo: where we use $enrollKey ? */
         list($record, $enrollKey) = $this->client->enrollAccount($enrollmentResponse, "passw0rd");
         $request = $this->client->createVerifyPasswordRequest("passw0rd", $record);
         $response = $this->server->verifyPassword($serverPrivateKey, $serverPublicKey, $request);
         $this->assertNotNull($response);
+        /** todo: is it possible that $this->server->verifyPassword return us not string ? */
         $this->assertTrue(is_string($response));
     }
 }

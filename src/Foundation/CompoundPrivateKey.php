@@ -1,6 +1,6 @@
 <?php
 /**
-* Copyright (C) 2015-2020 Virgil Security, Inc.
+* Copyright (C) 2015-2024 Virgil Security, Inc.
 *
 * All rights reserved.
 *
@@ -37,6 +37,8 @@
 
 namespace Virgil\CryptoWrapper\Foundation;
 
+use Exception;
+
 /**
 * Handles compound private key.
 *
@@ -48,9 +50,9 @@ class CompoundPrivateKey implements Key, PrivateKey
 {
 
     /**
-    * @var
+    * @var mixed
     */
-    private $ctx;
+    private mixed $ctx;
 
     /**
     * Create underlying C context.
@@ -66,7 +68,7 @@ class CompoundPrivateKey implements Key, PrivateKey
     * Destroy underlying C context.
     * @return void
     */
-    public function __destructor()
+    public function __destructor(): void
     {
         vscf_compound_private_key_delete_php($this->ctx);
     }
@@ -75,7 +77,7 @@ class CompoundPrivateKey implements Key, PrivateKey
     * Return primary private key suitable for a final decryption.
     *
     * @return PrivateKey
-    * @throws \Exception
+    * @throws Exception
     */
     public function cipherKey(): PrivateKey
     {
@@ -87,7 +89,7 @@ class CompoundPrivateKey implements Key, PrivateKey
     * Return private key suitable for signing.
     *
     * @return PrivateKey
-    * @throws \Exception
+    * @throws Exception
     */
     public function signerKey(): PrivateKey
     {
@@ -110,7 +112,7 @@ class CompoundPrivateKey implements Key, PrivateKey
     * Return algorithm information that can be used for serialization.
     *
     * @return AlgInfo
-    * @throws \Exception
+    * @throws Exception
     */
     public function algInfo(): AlgInfo
     {
@@ -153,7 +155,7 @@ class CompoundPrivateKey implements Key, PrivateKey
     * Extract public key from the private key.
     *
     * @return PublicKey
-    * @throws \Exception
+    * @throws Exception
     */
     public function extractPublicKey(): PublicKey
     {

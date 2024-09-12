@@ -1,6 +1,6 @@
 <?php
 /**
-* Copyright (C) 2015-2020 Virgil Security, Inc.
+* Copyright (C) 2015-2024 Virgil Security, Inc.
 *
 * All rights reserved.
 *
@@ -37,6 +37,8 @@
 
 namespace Virgil\CryptoWrapper\Foundation;
 
+use Exception;
+
 /**
 * Implementation of the symmetric cipher AES-256 bit in a CBC mode.
 * Note, this implementation contains dynamic memory allocations,
@@ -46,14 +48,14 @@ class Aes256Cbc implements Alg, Encrypt, Decrypt, CipherInfo, Cipher
 {
 
     /**
-    * @var
-    */
-    private $ctx;
+     * @var mixed
+     */
+    private mixed $ctx;
 
-    const NONCE_LEN = 16;
-    const KEY_LEN = 32;
-    const KEY_BITLEN = 256;
-    const BLOCK_LEN = 16;
+    const int NONCE_LEN = 16;
+    const int KEY_LEN = 32;
+    const int KEY_BITLEN = 256;
+    const int BLOCK_LEN = 16;
 
     /**
     * Create underlying C context.
@@ -69,7 +71,7 @@ class Aes256Cbc implements Alg, Encrypt, Decrypt, CipherInfo, Cipher
     * Destroy underlying C context.
     * @return void
     */
-    public function __destructor()
+    public function __destructor(): void
     {
         vscf_aes256_cbc_delete_php($this->ctx);
     }
@@ -89,7 +91,7 @@ class Aes256Cbc implements Alg, Encrypt, Decrypt, CipherInfo, Cipher
     * Produce object with algorithm information and configuration parameters.
     *
     * @return AlgInfo
-    * @throws \Exception
+    * @throws Exception
     */
     public function produceAlgInfo(): AlgInfo
     {
@@ -102,7 +104,7 @@ class Aes256Cbc implements Alg, Encrypt, Decrypt, CipherInfo, Cipher
     *
     * @param AlgInfo $algInfo
     * @return void
-    * @throws \Exception
+    * @throws Exception
     */
     public function restoreAlgInfo(AlgInfo $algInfo): void
     {
@@ -114,7 +116,7 @@ class Aes256Cbc implements Alg, Encrypt, Decrypt, CipherInfo, Cipher
     *
     * @param string $data
     * @return string
-    * @throws \Exception
+    * @throws Exception
     */
     public function encrypt(string $data): string
     {
@@ -148,7 +150,7 @@ class Aes256Cbc implements Alg, Encrypt, Decrypt, CipherInfo, Cipher
     *
     * @param string $data
     * @return string
-    * @throws \Exception
+    * @throws Exception
     */
     public function decrypt(string $data): string
     {
@@ -262,7 +264,7 @@ class Aes256Cbc implements Alg, Encrypt, Decrypt, CipherInfo, Cipher
     * Accomplish encryption or decryption process.
     *
     * @return string
-    * @throws \Exception
+    * @throws Exception
     */
     public function finish(): string
     {

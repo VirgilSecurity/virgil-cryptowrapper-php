@@ -1,6 +1,6 @@
 <?php
 /**
-* Copyright (C) 2015-2020 Virgil Security, Inc.
+* Copyright (C) 2015-2024 Virgil Security, Inc.
 *
 * All rights reserved.
 *
@@ -37,6 +37,8 @@
 
 namespace Virgil\CryptoWrapper\Foundation;
 
+use Exception;
+
 /**
 * Create a bridge between "raw keys" and algorithms that can import them.
 */
@@ -49,7 +51,7 @@ class KeyAlgFactory
     * @param AlgId $algId
     * @param Random $random
     * @return KeyAlg
-    * @throws \Exception
+    * @throws Exception
     */
     public static function createFromAlgId(AlgId $algId, Random $random): KeyAlg
     {
@@ -63,7 +65,7 @@ class KeyAlgFactory
     * @param Key $key
     * @param Random $random
     * @return KeyAlg
-    * @throws \Exception
+    * @throws Exception
     */
     public static function createFromKey(Key $key, Random $random): KeyAlg
     {
@@ -77,7 +79,7 @@ class KeyAlgFactory
     * @param RawPublicKey $publicKey
     * @param Random $random
     * @return KeyAlg
-    * @throws \Exception
+    * @throws Exception
     */
     public static function createFromRawPublicKey(RawPublicKey $publicKey, Random $random): KeyAlg
     {
@@ -91,7 +93,7 @@ class KeyAlgFactory
     * @param RawPrivateKey $privateKey
     * @param Random $random
     * @return KeyAlg
-    * @throws \Exception
+    * @throws Exception
     */
     public static function createFromRawPrivateKey(RawPrivateKey $privateKey, Random $random): KeyAlg
     {

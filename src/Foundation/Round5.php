@@ -1,6 +1,6 @@
 <?php
 /**
-* Copyright (C) 2015-2020 Virgil Security, Inc.
+* Copyright (C) 2015-2024 Virgil Security, Inc.
 *
 * All rights reserved.
 *
@@ -37,6 +37,8 @@
 
 namespace Virgil\CryptoWrapper\Foundation;
 
+use Exception;
+
 /**
 * Provide post-quantum encryption based on the round5 implementation.
 * For algorithm details check https://github.com/round5/code
@@ -45,15 +47,15 @@ class Round5 implements KeyAlg, Kem
 {
 
     /**
-    * @var
+    * @var mixed
     */
-    private $ctx;
+    private mixed $ctx;
 
-    const SEED_LEN = 48;
-    const CAN_IMPORT_PUBLIC_KEY = true;
-    const CAN_EXPORT_PUBLIC_KEY = true;
-    const CAN_IMPORT_PRIVATE_KEY = true;
-    const CAN_EXPORT_PRIVATE_KEY = true;
+    const int SEED_LEN = 48;
+    const bool CAN_IMPORT_PUBLIC_KEY = true;
+    const bool CAN_EXPORT_PUBLIC_KEY = true;
+    const bool CAN_IMPORT_PRIVATE_KEY = true;
+    const bool CAN_EXPORT_PRIVATE_KEY = true;
 
     /**
     * Create underlying C context.
@@ -69,7 +71,7 @@ class Round5 implements KeyAlg, Kem
     * Destroy underlying C context.
     * @return void
     */
-    public function __destructor()
+    public function __destructor(): void
     {
         vscf_round5_delete_php($this->ctx);
     }
@@ -87,7 +89,7 @@ class Round5 implements KeyAlg, Kem
     * Setup predefined values to the uninitialized class dependencies.
     *
     * @return void
-    * @throws \Exception
+    * @throws Exception
     */
     public function setupDefaults(): void
     {
@@ -100,7 +102,7 @@ class Round5 implements KeyAlg, Kem
     *
     * @param AlgId $algId
     * @return PrivateKey
-    * @throws \Exception
+    * @throws Exception
     */
     public function generateKey(AlgId $algId): PrivateKey
     {
@@ -114,7 +116,7 @@ class Round5 implements KeyAlg, Kem
     *
     * @param Key $key
     * @return PrivateKey
-    * @throws \Exception
+    * @throws Exception
     */
     public function generateEphemeralKey(Key $key): PrivateKey
     {
@@ -134,7 +136,7 @@ class Round5 implements KeyAlg, Kem
     *
     * @param RawPublicKey $rawKey
     * @return PublicKey
-    * @throws \Exception
+    * @throws Exception
     */
     public function importPublicKey(RawPublicKey $rawKey): PublicKey
     {
@@ -170,7 +172,7 @@ class Round5 implements KeyAlg, Kem
     *
     * @param RawPrivateKey $rawKey
     * @return PrivateKey
-    * @throws \Exception
+    * @throws Exception
     */
     public function importPrivateKey(RawPrivateKey $rawKey): PrivateKey
     {
@@ -221,7 +223,7 @@ class Round5 implements KeyAlg, Kem
     *
     * @param PublicKey $publicKey
     * @return array
-    * @throws \Exception
+    * @throws Exception
     */
     public function kemEncapsulate(PublicKey $publicKey): array // [shared_key, encapsulated_key]
     {
@@ -234,7 +236,7 @@ class Round5 implements KeyAlg, Kem
     * @param string $encapsulatedKey
     * @param PrivateKey $privateKey
     * @return string
-    * @throws \Exception
+    * @throws Exception
     */
     public function kemDecapsulate(string $encapsulatedKey, PrivateKey $privateKey): string
     {

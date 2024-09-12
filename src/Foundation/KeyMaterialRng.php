@@ -1,6 +1,6 @@
 <?php
 /**
-* Copyright (C) 2015-2020 Virgil Security, Inc.
+* Copyright (C) 2015-2024 Virgil Security, Inc.
 *
 * All rights reserved.
 *
@@ -37,6 +37,8 @@
 
 namespace Virgil\CryptoWrapper\Foundation;
 
+use Exception;
+
 /**
 * Random number generator that generate deterministic sequence based
 * on a given seed.
@@ -48,10 +50,10 @@ class KeyMaterialRng implements Random
     /**
     * @var
     */
-    private $ctx;
+    private mixed $ctx;
 
-    const KEY_MATERIAL_LEN_MIN = 32;
-    const KEY_MATERIAL_LEN_MAX = 512;
+    const int KEY_MATERIAL_LEN_MIN = 32;
+    const int KEY_MATERIAL_LEN_MAX = 512;
 
     /**
     * Create underlying C context.
@@ -67,7 +69,7 @@ class KeyMaterialRng implements Random
     * Destroy underlying C context.
     * @return void
     */
-    public function __destructor()
+    public function __destructor(): void
     {
         vscf_key_material_rng_delete_php($this->ctx);
     }
@@ -89,7 +91,7 @@ class KeyMaterialRng implements Random
     *
     * @param int $dataLen
     * @return string
-    * @throws \Exception
+    * @throws Exception
     */
     public function random(int $dataLen): string
     {
@@ -100,7 +102,7 @@ class KeyMaterialRng implements Random
     * Retrieve new seed data from the entropy sources.
     *
     * @return void
-    * @throws \Exception
+    * @throws Exception
     */
     public function reseed(): void
     {

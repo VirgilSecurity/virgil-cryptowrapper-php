@@ -1,6 +1,6 @@
 <?php
 /**
-* Copyright (C) 2015-2020 Virgil Security, Inc.
+* Copyright (C) 2015-2024 Virgil Security, Inc.
 *
 * All rights reserved.
 *
@@ -37,6 +37,8 @@
 
 namespace Virgil\CryptoWrapper\Foundation;
 
+use Exception;
+
 /**
 * Mix-in interface that provides specific functionality to authenticated
 * encryption and decryption (AEAD ciphers).
@@ -59,7 +61,7 @@ interface CipherAuth extends Ctx
     * method "finish" can be used.
     *
     * @return array
-    * @throws \Exception
+    * @throws Exception
     */
     public function finishAuthEncryption(): array; // [out, tag]
 
@@ -71,7 +73,7 @@ interface CipherAuth extends Ctx
     *
     * @param string $tag
     * @return string
-    * @throws \Exception
+    * @throws Exception
     */
     public function finishAuthDecryption(string $tag): string;
 }

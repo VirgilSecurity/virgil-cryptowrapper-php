@@ -1,6 +1,6 @@
 <?php
 /**
-* Copyright (C) 2015-2020 Virgil Security, Inc.
+* Copyright (C) 2015-2024 Virgil Security, Inc.
 *
 * All rights reserved.
 *
@@ -37,6 +37,8 @@
 
 namespace Virgil\CryptoWrapper\Foundation;
 
+use Exception;
+
 /**
 * Random number generator that is used for test purposes only.
 */
@@ -44,9 +46,9 @@ class FakeRandom implements Random, EntropySource
 {
 
     /**
-    * @var
+    * @var mixed
     */
-    private $ctx;
+    private mixed $ctx;
 
     /**
     * Create underlying C context.
@@ -62,7 +64,7 @@ class FakeRandom implements Random, EntropySource
     * Destroy underlying C context.
     * @return void
     */
-    public function __destructor()
+    public function __destructor(): void
     {
         vscf_fake_random_delete_php($this->ctx);
     }
@@ -96,7 +98,7 @@ class FakeRandom implements Random, EntropySource
     *
     * @param int $dataLen
     * @return string
-    * @throws \Exception
+    * @throws Exception
     */
     public function random(int $dataLen): string
     {
@@ -107,7 +109,7 @@ class FakeRandom implements Random, EntropySource
     * Retrieve new seed data from the entropy sources.
     *
     * @return void
-    * @throws \Exception
+    * @throws Exception
     */
     public function reseed(): void
     {
@@ -129,7 +131,7 @@ class FakeRandom implements Random, EntropySource
     *
     * @param int $len
     * @return string
-    * @throws \Exception
+    * @throws Exception
     */
     public function gather(int $len): string
     {

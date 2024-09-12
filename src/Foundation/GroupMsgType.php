@@ -1,6 +1,6 @@
 <?php
 /**
-* Copyright (C) 2015-2020 Virgil Security, Inc.
+* Copyright (C) 2015-2024 Virgil Security, Inc.
 *
 * All rights reserved.
 *
@@ -45,6 +45,6 @@ use MyCLabs\Enum\Enum;
 class GroupMsgType extends Enum
 {
 
-    private const GROUP_INFO = "1";
-    private const REGULAR = "2";
+    private const string GROUP_INFO = "1";
+    private const string REGULAR = "2";
 }

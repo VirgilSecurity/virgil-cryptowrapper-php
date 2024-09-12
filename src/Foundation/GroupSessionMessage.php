@@ -1,6 +1,6 @@
 <?php
 /**
-* Copyright (C) 2015-2020 Virgil Security, Inc.
+* Copyright (C) 2015-2024 Virgil Security, Inc.
 *
 * All rights reserved.
 *
@@ -44,12 +44,12 @@ class GroupSessionMessage
 {
 
     /**
-    * @var
+    * @var mixed
     */
-    private $ctx;
+    private mixed $ctx;
 
-    const MAX_MESSAGE_LEN = 30188;
-    const MESSAGE_VERSION = 1;
+    const int MAX_MESSAGE_LEN = 30188;
+    const int MESSAGE_VERSION = 1;
 
     /**
     * Create underlying C context.
@@ -65,7 +65,7 @@ class GroupSessionMessage
     * Destroy underlying C context.
     * @return void
     */
-    public function __destructor()
+    public function __destructor(): void
     {
         vscf_group_session_message_delete_php($this->ctx);
     }

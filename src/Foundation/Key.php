@@ -1,6 +1,6 @@
 <?php
 /**
-* Copyright (C) 2015-2020 Virgil Security, Inc.
+* Copyright (C) 2015-2024 Virgil Security, Inc.
 *
 * All rights reserved.
 *
@@ -37,6 +37,8 @@
 
 namespace Virgil\CryptoWrapper\Foundation;
 
+use Exception;
+
 /**
 * Basic key type.
 */
@@ -54,7 +56,7 @@ interface Key extends Ctx
     * Return algorithm information that can be used for serialization.
     *
     * @return AlgInfo
-    * @throws \Exception
+    * @throws Exception
     */
     public function algInfo(): AlgInfo;
 

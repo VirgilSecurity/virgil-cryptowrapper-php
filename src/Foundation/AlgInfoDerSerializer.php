@@ -1,6 +1,6 @@
 <?php
 /**
-* Copyright (C) 2015-2020 Virgil Security, Inc.
+* Copyright (C) 2015-2024 Virgil Security, Inc.
 *
 * All rights reserved.
 *
@@ -46,7 +46,7 @@ class AlgInfoDerSerializer implements AlgInfoSerializer
     /**
     * @var
     */
-    private $ctx;
+    private mixed $ctx;
 
     /**
     * Create underlying C context.
@@ -62,7 +62,7 @@ class AlgInfoDerSerializer implements AlgInfoSerializer
     * Destroy underlying C context.
     * @return void
     */
-    public function __destructor()
+    public function __destructor(): void
     {
         vscf_alg_info_der_serializer_delete_php($this->ctx);
     }

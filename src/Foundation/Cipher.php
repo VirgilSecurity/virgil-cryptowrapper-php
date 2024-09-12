@@ -1,6 +1,6 @@
 <?php
 /**
-* Copyright (C) 2015-2020 Virgil Security, Inc.
+* Copyright (C) 2015-2024 Virgil Security, Inc.
 *
 * All rights reserved.
 *
@@ -36,6 +36,8 @@
 */
 
 namespace Virgil\CryptoWrapper\Foundation;
+
+use Exception;
 
 /**
 * Provide interface for symmetric ciphers.
@@ -115,7 +117,7 @@ interface Cipher extends Ctx
     * Accomplish encryption or decryption process.
     *
     * @return string
-    * @throws \Exception
+    * @throws Exception
     */
     public function finish(): string;
 }

@@ -37,15 +37,20 @@
 
 namespace Virgil\CryptoWrapperTests\Phe;
 
+use Exception;
 use Virgil\CryptoWrapper\Phe\PheClient;
 use Virgil\CryptoWrapper\Phe\PheServer;
 
 class PheClientTest extends \PHPUnit\Framework\TestCase
 {
-    protected $client;
-    protected $server;
-    private $password;
+    protected PheClient $client;
+    protected PheServer $server;
+    private string $password;
 
+    /**
+     * @return void
+     * @throws Exception
+     */
     protected function setUp(): void
     {
         $this->password = "passw0rd";
@@ -57,15 +62,23 @@ class PheClientTest extends \PHPUnit\Framework\TestCase
         $this->server->setupDefaults();
     }
 
+    /**
+     * @return void
+     */
     protected function tearDown(): void
     {
         unset($this->client);
         unset($this->server);
     }
 
+    /**
+     * @return void
+     * @throws Exception
+     */
     public function test_PheClient_enrollAccount(): void
     {
         list($serverPrivateKey, $serverPublicKey) = $this->server->generateServerKeyPair();
+        /** todo: where we use $clientPublicKey ? */
         list($clientPrivateKey, $clientPublicKey) = $this->server->generateServerKeyPair();
         $this->client->setKeys($clientPrivateKey, $serverPublicKey);
         $enrollmentResponse = $this->server->getEnrollment($serverPrivateKey, $serverPublicKey);
@@ -76,24 +89,37 @@ class PheClientTest extends \PHPUnit\Framework\TestCase
         $this->assertTrue(is_string($enrollKey));
     }
 
+    /**
+     * @return void
+     * @throws Exception
+     */
     public function test_PheClient_passwordVerifyRequest(): void
     {
         list($serverPrivateKey, $serverPublicKey) = $this->server->generateServerKeyPair();
+        /** todo: where we use $clientPublicKey ? */
         list($clientPrivateKey, $clientPublicKey) = $this->server->generateServerKeyPair();
         $this->client->setKeys($clientPrivateKey, $serverPublicKey);
         $enrollmentResponse = $this->server->getEnrollment($serverPrivateKey, $serverPublicKey);
+        /** todo: where we use $enrollKey ? */
         list($enrollRecord, $enrollKey) = $this->client->enrollAccount($enrollmentResponse, "passw0rd");
         $request = $this->client->createVerifyPasswordRequest("passw0rd", $enrollRecord);
         $this->assertNotNull($request);
+        //todo: is it possible that $this->client->createVerifyPasswordRequest return not string ?
         $this->assertTrue(is_string($request));
     }
 
+    /**
+     * @return void
+     * @throws Exception
+     */
     public function test_PheClient_verifyServerResponse(): void
     {
         list($serverPrivateKey, $serverPublicKey) = $this->server->generateServerKeyPair();
+        /** todo: $clientPublicKey - where we use it ? */
         list($clientPrivateKey, $clientPublicKey) = $this->server->generateServerKeyPair();
         $this->client->setKeys($clientPrivateKey, $serverPublicKey);
         $enrollmentResponse = $this->server->getEnrollment($serverPrivateKey, $serverPublicKey);
+        /** todo: $enrollKey - where we use it ? */
         list($enrollRecord, $enrollKey) = $this->client->enrollAccount($enrollmentResponse, "passw0rd");
 
         $request = $this->client->createVerifyPasswordRequest("passw0rd", $enrollRecord);
@@ -102,9 +128,14 @@ class PheClientTest extends \PHPUnit\Framework\TestCase
         $verifiedResponse = $this->client->checkResponseAndDecrypt("passw0rd", $enrollRecord, $response);
 
         $this->assertNotNull($verifiedResponse);
+        /** todo: is it possible that $this->client->checkResponseAndDecrypt return not string ? */
         $this->assertTrue(is_string($verifiedResponse));
     }
 
+    /**
+     * @return void
+     * @throws Exception
+     */
     public function testInitNewClientWithRotatedKeysShouldSucceed(): void
     {
         $serverKeyPair = $this->server->generateServerKeyPair(); // [{privateKey}, {publicKey}]
@@ -155,23 +186,35 @@ class PheClientTest extends \PHPUnit\Framework\TestCase
         $this->assertIsString($clientEnrollmentRecord);
         $this->assertIsString($clientAccountKey);
 
-        $clientCreateVerifyPasswordRequest = $client2->createVerifyPasswordRequest($this->password,
-            $clientEnrollmentRecord);
+        $clientCreateVerifyPasswordRequest = $client2->createVerifyPasswordRequest(
+            $this->password,
+            $clientEnrollmentRecord
+        );
         $this->assertNotEmpty($clientCreateVerifyPasswordRequest);
         $this->assertIsString($clientCreateVerifyPasswordRequest);
 
-        $serverVerifyPassword = $this->server->verifyPassword($newServerPrivateKey, $newServerPublicKey,
-            $clientCreateVerifyPasswordRequest);
+        $serverVerifyPassword = $this->server->verifyPassword(
+            $newServerPrivateKey,
+            $newServerPublicKey,
+            $clientCreateVerifyPasswordRequest
+        );
         $this->assertIsString($serverVerifyPassword);
 
-        $clientCheckResponseAndDecrypt = $client2->checkResponseAndDecrypt($this->password,
-            $clientEnrollmentRecord, $serverVerifyPassword);
+        $clientCheckResponseAndDecrypt = $client2->checkResponseAndDecrypt(
+            $this->password,
+            $clientEnrollmentRecord,
+            $serverVerifyPassword
+        );
         $this->assertIsString($clientCheckResponseAndDecrypt);
         $this->assertEquals(32, strlen($clientAccountKey));
         $this->assertEquals(32, strlen($clientCheckResponseAndDecrypt));
         $this->assertEquals($clientAccountKey, $clientCheckResponseAndDecrypt);
     }
 
+    /**
+     * @return void
+     * @throws Exception
+     */
     public function testFullFlowRandomCorrectPwdShouldSucceed(): void
     {
         $password = "passw0rd";
@@ -207,23 +250,35 @@ class PheClientTest extends \PHPUnit\Framework\TestCase
         $this->assertIsString($clientEnrollmentRecord);
         $this->assertIsString($clientAccountKey);
 
-        $clientCreateVerifyPasswordRequest = $this->client->createVerifyPasswordRequest($password,
-            $clientEnrollmentRecord);
+        $clientCreateVerifyPasswordRequest = $this->client->createVerifyPasswordRequest(
+            $password,
+            $clientEnrollmentRecord
+        );
         $this->assertNotEmpty($clientCreateVerifyPasswordRequest);
         $this->assertIsString($clientCreateVerifyPasswordRequest);
 
-        $serverVerifyPassword = $this->server->verifyPassword($serverPrivateKey, $serverPublicKey,
-            $clientCreateVerifyPasswordRequest);
+        $serverVerifyPassword = $this->server->verifyPassword(
+            $serverPrivateKey,
+            $serverPublicKey,
+            $clientCreateVerifyPasswordRequest
+        );
         $this->assertIsString($serverVerifyPassword);
 
-        $clientCheckResponseAndDecrypt = $this->client->checkResponseAndDecrypt($password,
-            $clientEnrollmentRecord, $serverVerifyPassword);
+        $clientCheckResponseAndDecrypt = $this->client->checkResponseAndDecrypt(
+            $password,
+            $clientEnrollmentRecord,
+            $serverVerifyPassword
+        );
         $this->assertIsString($clientCheckResponseAndDecrypt);
         $this->assertEquals(32, strlen($clientAccountKey));
         $this->assertEquals(32, strlen($clientCheckResponseAndDecrypt));
         $this->assertEquals($clientAccountKey, $clientCheckResponseAndDecrypt);
     }
 
+    /**
+     * @return void
+     * @throws Exception
+     */
     public function testRotationRandomRotationServerPublicKeysMatch(): void
     {
         $serverKeyPair = $this->server->generateServerKeyPair(); // [{privateKey}, {publicKey}]

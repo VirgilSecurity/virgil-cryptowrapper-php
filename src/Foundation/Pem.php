@@ -1,6 +1,6 @@
 <?php
 /**
-* Copyright (C) 2015-2020 Virgil Security, Inc.
+* Copyright (C) 2015-2024 Virgil Security, Inc.
 *
 * All rights reserved.
 *
@@ -36,6 +36,8 @@
 */
 
 namespace Virgil\CryptoWrapper\Foundation;
+
+use Exception;
 
 /**
 * Simple PEM wrapper.
@@ -85,7 +87,7 @@ class Pem
     *
     * @param string $pem
     * @return string
-    * @throws \Exception
+    * @throws Exception
     */
     public static function unwrap(string $pem): string
     {

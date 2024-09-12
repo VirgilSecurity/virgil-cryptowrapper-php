@@ -1,6 +1,6 @@
 <?php
 /**
-* Copyright (C) 2015-2020 Virgil Security, Inc.
+* Copyright (C) 2015-2024 Virgil Security, Inc.
 *
 * All rights reserved.
 *
@@ -37,6 +37,9 @@
 
 namespace Virgil\CryptoWrapper\Phe;
 
+use Exception;
+use Virgil\CryptoWrapper\Foundation\Random;
+
 /**
 * Implements wrap rotation.
 */
@@ -44,9 +47,9 @@ class UokmsWrapRotation
 {
 
     /**
-    * @var
+    * @var mixed
     */
-    private $ctx;
+    private mixed $ctx;
 
     /**
     * Create underlying C context.
@@ -62,16 +65,16 @@ class UokmsWrapRotation
     * Destroy underlying C context.
     * @return void
     */
-    public function __destructor()
+    public function __destructor(): void
     {
         vsce_uokms_wrap_rotation_delete_php($this->ctx);
     }
 
     /**
-    * @param \Virgil\CryptoWrapper\Foundation\Random $operationRandom
+    * @param Random $operationRandom
     * @return void
     */
-    public function useOperationRandom(\Virgil\CryptoWrapper\Foundation\Random $operationRandom): void
+    public function useOperationRandom(Random $operationRandom): void
     {
         vsce_uokms_wrap_rotation_use_operation_random_php($this->ctx, $operationRandom->getCtx());
     }
@@ -80,7 +83,7 @@ class UokmsWrapRotation
     * Setups dependencies with default values.
     *
     * @return void
-    * @throws \Exception
+    * @throws Exception
     */
     public function setupDefaults(): void
     {
@@ -92,7 +95,7 @@ class UokmsWrapRotation
     *
     * @param string $updateToken
     * @return void
-    * @throws \Exception
+    * @throws Exception
     */
     public function setUpdateToken(string $updateToken): void
     {
@@ -104,7 +107,7 @@ class UokmsWrapRotation
     *
     * @param string $wrap
     * @return string
-    * @throws \Exception
+    * @throws Exception
     */
     public function updateWrap(string $wrap): string
     {

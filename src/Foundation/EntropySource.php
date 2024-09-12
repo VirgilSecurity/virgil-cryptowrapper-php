@@ -1,6 +1,6 @@
 <?php
 /**
-* Copyright (C) 2015-2020 Virgil Security, Inc.
+* Copyright (C) 2015-2024 Virgil Security, Inc.
 *
 * All rights reserved.
 *
@@ -37,6 +37,8 @@
 
 namespace Virgil\CryptoWrapper\Foundation;
 
+use Exception;
+
 /**
 * Defines generic interface for the entropy source.
 */
@@ -55,7 +57,7 @@ interface EntropySource extends Ctx
     *
     * @param int $len
     * @return string
-    * @throws \Exception
+    * @throws Exception
     */
     public function gather(int $len): string;
 }

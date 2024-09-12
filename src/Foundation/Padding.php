@@ -1,6 +1,6 @@
 <?php
 /**
-* Copyright (C) 2015-2020 Virgil Security, Inc.
+* Copyright (C) 2015-2024 Virgil Security, Inc.
 *
 * All rights reserved.
 *
@@ -36,6 +36,8 @@
 */
 
 namespace Virgil\CryptoWrapper\Foundation;
+
+use Exception;
 
 /**
 * Provide an interface to add and remove data padding.
@@ -94,7 +96,7 @@ interface Padding extends Ctx
     * Accomplish data processing and return padding.
     *
     * @return string
-    * @throws \Exception
+    * @throws Exception
     */
     public function finishDataProcessing(): string;
 
@@ -126,7 +128,7 @@ interface Padding extends Ctx
     * Accomplish padded data processing and return left data without a padding.
     *
     * @return string
-    * @throws \Exception
+    * @throws Exception
     */
     public function finishPaddedDataProcessing(): string;
 }

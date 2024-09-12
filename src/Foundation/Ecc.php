@@ -1,6 +1,6 @@
 <?php
 /**
-* Copyright (C) 2015-2020 Virgil Security, Inc.
+* Copyright (C) 2015-2024 Virgil Security, Inc.
 *
 * All rights reserved.
 *
@@ -37,6 +37,8 @@
 
 namespace Virgil\CryptoWrapper\Foundation;
 
+use Exception;
+
 /**
 * Elliptic curve cryptography implementation.
 * Supported curves:
@@ -46,14 +48,14 @@ class Ecc implements KeyAlg, KeyCipher, KeySigner, ComputeSharedKey, Kem
 {
 
     /**
-    * @var
+    * @var mixed
     */
-    private $ctx;
+    private mixed $ctx;
 
-    const CAN_IMPORT_PUBLIC_KEY = true;
-    const CAN_EXPORT_PUBLIC_KEY = true;
-    const CAN_IMPORT_PRIVATE_KEY = true;
-    const CAN_EXPORT_PRIVATE_KEY = true;
+    const bool CAN_IMPORT_PUBLIC_KEY = true;
+    const bool CAN_EXPORT_PUBLIC_KEY = true;
+    const bool CAN_IMPORT_PRIVATE_KEY = true;
+    const bool CAN_EXPORT_PRIVATE_KEY = true;
 
     /**
     * Create underlying C context.
@@ -69,7 +71,7 @@ class Ecc implements KeyAlg, KeyCipher, KeySigner, ComputeSharedKey, Kem
     * Destroy underlying C context.
     * @return void
     */
-    public function __destructor()
+    public function __destructor(): void
     {
         vscf_ecc_delete_php($this->ctx);
     }
@@ -96,7 +98,7 @@ class Ecc implements KeyAlg, KeyCipher, KeySigner, ComputeSharedKey, Kem
     * Setup predefined values to the uninitialized class dependencies.
     *
     * @return void
-    * @throws \Exception
+    * @throws Exception
     */
     public function setupDefaults(): void
     {
@@ -112,7 +114,7 @@ class Ecc implements KeyAlg, KeyCipher, KeySigner, ComputeSharedKey, Kem
     *
     * @param AlgId $algId
     * @return PrivateKey
-    * @throws \Exception
+    * @throws Exception
     */
     public function generateKey(AlgId $algId): PrivateKey
     {
@@ -126,7 +128,7 @@ class Ecc implements KeyAlg, KeyCipher, KeySigner, ComputeSharedKey, Kem
     *
     * @param Key $key
     * @return PrivateKey
-    * @throws \Exception
+    * @throws Exception
     */
     public function generateEphemeralKey(Key $key): PrivateKey
     {
@@ -146,7 +148,7 @@ class Ecc implements KeyAlg, KeyCipher, KeySigner, ComputeSharedKey, Kem
     *
     * @param RawPublicKey $rawKey
     * @return PublicKey
-    * @throws \Exception
+    * @throws Exception
     */
     public function importPublicKey(RawPublicKey $rawKey): PublicKey
     {
@@ -182,7 +184,7 @@ class Ecc implements KeyAlg, KeyCipher, KeySigner, ComputeSharedKey, Kem
     *
     * @param RawPrivateKey $rawKey
     * @return PrivateKey
-    * @throws \Exception
+    * @throws Exception
     */
     public function importPrivateKey(RawPrivateKey $rawKey): PrivateKey
     {
@@ -236,7 +238,7 @@ class Ecc implements KeyAlg, KeyCipher, KeySigner, ComputeSharedKey, Kem
     * @param PublicKey $publicKey
     * @param string $data
     * @return string
-    * @throws \Exception
+    * @throws Exception
     */
     public function encrypt(PublicKey $publicKey, string $data): string
     {
@@ -274,7 +276,7 @@ class Ecc implements KeyAlg, KeyCipher, KeySigner, ComputeSharedKey, Kem
     * @param PrivateKey $privateKey
     * @param string $data
     * @return string
-    * @throws \Exception
+    * @throws Exception
     */
     public function decrypt(PrivateKey $privateKey, string $data): string
     {
@@ -311,7 +313,7 @@ class Ecc implements KeyAlg, KeyCipher, KeySigner, ComputeSharedKey, Kem
     * @param AlgId $hashId
     * @param string $digest
     * @return string
-    * @throws \Exception
+    * @throws Exception
     */
     public function signHash(PrivateKey $privateKey, AlgId $hashId, string $digest): string
     {
@@ -350,7 +352,7 @@ class Ecc implements KeyAlg, KeyCipher, KeySigner, ComputeSharedKey, Kem
     * @param PublicKey $publicKey
     * @param PrivateKey $privateKey
     * @return string
-    * @throws \Exception
+    * @throws Exception
     */
     public function computeSharedKey(PublicKey $publicKey, PrivateKey $privateKey): string
     {
@@ -396,7 +398,7 @@ class Ecc implements KeyAlg, KeyCipher, KeySigner, ComputeSharedKey, Kem
     *
     * @param PublicKey $publicKey
     * @return array
-    * @throws \Exception
+    * @throws Exception
     */
     public function kemEncapsulate(PublicKey $publicKey): array // [shared_key, encapsulated_key]
     {
@@ -409,7 +411,7 @@ class Ecc implements KeyAlg, KeyCipher, KeySigner, ComputeSharedKey, Kem
     * @param string $encapsulatedKey
     * @param PrivateKey $privateKey
     * @return string
-    * @throws \Exception
+    * @throws Exception
     */
     public function kemDecapsulate(string $encapsulatedKey, PrivateKey $privateKey): string
     {

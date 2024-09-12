@@ -1,6 +1,6 @@
 <?php
 /**
-* Copyright (C) 2015-2020 Virgil Security, Inc.
+* Copyright (C) 2015-2024 Virgil Security, Inc.
 *
 * All rights reserved.
 *
@@ -42,34 +42,34 @@ use MyCLabs\Enum\Enum;
 class OidId extends Enum
 {
 
-    private const NONE = 0;
-    private const RSA = 1;
-    private const ED25519 = 2;
-    private const CURVE25519 = 3;
-    private const SHA224 = 4;
-    private const SHA256 = 5;
-    private const SHA384 = 6;
-    private const SHA512 = 7;
-    private const KDF1 = 8;
-    private const KDF2 = 9;
-    private const AES256_GCM = 10;
-    private const AES256_CBC = 11;
-    private const PKCS5_PBKDF2 = 12;
-    private const PKCS5_PBES2 = 13;
-    private const CMS_DATA = 14;
-    private const CMS_ENVELOPED_DATA = 15;
-    private const HKDF_WITH_SHA256 = 16;
-    private const HKDF_WITH_SHA384 = 17;
-    private const HKDF_WITH_SHA512 = 18;
-    private const HMAC_WITH_SHA224 = 19;
-    private const HMAC_WITH_SHA256 = 20;
-    private const HMAC_WITH_SHA384 = 21;
-    private const HMAC_WITH_SHA512 = 22;
-    private const EC_GENERIC_KEY = 23;
-    private const EC_DOMAIN_SECP256R1 = 24;
-    private const COMPOUND_KEY = 25;
-    private const HYBRID_KEY = 26;
-    private const FALCON = 27;
-    private const ROUND5_ND_1CCA_5D = 28;
-    private const RANDOM_PADDING = 29;
+    private const int NONE = 0;
+    private const int RSA = 1;
+    private const int ED25519 = 2;
+    private const int CURVE25519 = 3;
+    private const int SHA224 = 4;
+    private const int SHA256 = 5;
+    private const int SHA384 = 6;
+    private const int SHA512 = 7;
+    private const int KDF1 = 8;
+    private const int KDF2 = 9;
+    private const int AES256_GCM = 10;
+    private const int AES256_CBC = 11;
+    private const int PKCS5_PBKDF2 = 12;
+    private const int PKCS5_PBES2 = 13;
+    private const int CMS_DATA = 14;
+    private const int CMS_ENVELOPED_DATA = 15;
+    private const int HKDF_WITH_SHA256 = 16;
+    private const int HKDF_WITH_SHA384 = 17;
+    private const int HKDF_WITH_SHA512 = 18;
+    private const int HMAC_WITH_SHA224 = 19;
+    private const int HMAC_WITH_SHA256 = 20;
+    private const int HMAC_WITH_SHA384 = 21;
+    private const int HMAC_WITH_SHA512 = 22;
+    private const int EC_GENERIC_KEY = 23;
+    private const int EC_DOMAIN_SECP256R1 = 24;
+    private const int COMPOUND_KEY = 25;
+    private const int HYBRID_KEY = 26;
+    private const int FALCON = 27;
+    private const int ROUND5_ND_1CCA_5D = 28;
+    private const int RANDOM_PADDING = 29;
 }

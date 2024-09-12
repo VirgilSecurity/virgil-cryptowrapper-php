@@ -1,6 +1,6 @@
 <?php
 /**
-* Copyright (C) 2015-2020 Virgil Security, Inc.
+* Copyright (C) 2015-2024 Virgil Security, Inc.
 *
 * All rights reserved.
 *
@@ -37,6 +37,8 @@
 
 namespace Virgil\CryptoWrapper\Foundation;
 
+use Exception;
+
 /**
 * Public and private key serialization to an interchangeable format.
 */
@@ -60,7 +62,7 @@ interface KeySerializer extends Ctx
     *
     * @param RawPublicKey $publicKey
     * @return string
-    * @throws \Exception
+    * @throws Exception
     */
     public function serializePublicKey(RawPublicKey $publicKey): string;
 
@@ -81,7 +83,7 @@ interface KeySerializer extends Ctx
     *
     * @param RawPrivateKey $privateKey
     * @return string
-    * @throws \Exception
+    * @throws Exception
     */
     public function serializePrivateKey(RawPrivateKey $privateKey): string;
 }

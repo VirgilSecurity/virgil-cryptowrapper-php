@@ -1,6 +1,6 @@
 <?php
 /**
-* Copyright (C) 2015-2020 Virgil Security, Inc.
+* Copyright (C) 2015-2024 Virgil Security, Inc.
 *
 * All rights reserved.
 *
@@ -37,6 +37,8 @@
 
 namespace Virgil\CryptoWrapper\Foundation;
 
+use Exception;
+
 /**
 * This is MbedTLS implementation of ASN.1 reader.
 */
@@ -46,7 +48,7 @@ class Asn1rd implements Asn1Reader
     /**
     * @var
     */
-    private $ctx;
+    private mixed $ctx;
 
     /**
     * Create underlying C context.
@@ -62,7 +64,7 @@ class Asn1rd implements Asn1Reader
     * Destroy underlying C context.
     * @return void
     */
-    public function __destructor()
+    public function __destructor(): void
     {
         vscf_asn1rd_delete_php($this->ctx);
     }
@@ -102,7 +104,7 @@ class Asn1rd implements Asn1Reader
     * Return error code.
     *
     * @return void
-    * @throws \Exception
+    * @throws Exception
     */
     public function status(): void
     {

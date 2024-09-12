@@ -1,6 +1,6 @@
 <?php
 /**
-* Copyright (C) 2015-2020 Virgil Security, Inc.
+* Copyright (C) 2015-2024 Virgil Security, Inc.
 *
 * All rights reserved.
 *
@@ -37,6 +37,8 @@
 
 namespace Virgil\CryptoWrapper\Foundation;
 
+use Exception;
+
 /**
 * Implements SEC 1 key serialization to DER format.
 * See also RFC 5480 and RFC 5915.
@@ -45,9 +47,9 @@ class Sec1Serializer implements KeySerializer
 {
 
     /**
-    * @var
+    * @var mixed
     */
-    private $ctx;
+    private mixed $ctx;
 
     /**
     * Create underlying C context.
@@ -63,7 +65,7 @@ class Sec1Serializer implements KeySerializer
     * Destroy underlying C context.
     * @return void
     */
-    public function __destructor()
+    public function __destructor(): void
     {
         vscf_sec1_serializer_delete_php($this->ctx);
     }
@@ -133,7 +135,7 @@ class Sec1Serializer implements KeySerializer
     *
     * @param RawPublicKey $publicKey
     * @return string
-    * @throws \Exception
+    * @throws Exception
     */
     public function serializePublicKey(RawPublicKey $publicKey): string
     {
@@ -160,7 +162,7 @@ class Sec1Serializer implements KeySerializer
     *
     * @param RawPrivateKey $privateKey
     * @return string
-    * @throws \Exception
+    * @throws Exception
     */
     public function serializePrivateKey(RawPrivateKey $privateKey): string
     {

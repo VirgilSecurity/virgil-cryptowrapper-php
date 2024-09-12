@@ -1,6 +1,6 @@
 <?php
 /**
-* Copyright (C) 2015-2020 Virgil Security, Inc.
+* Copyright (C) 2015-2024 Virgil Security, Inc.
 *
 * All rights reserved.
 *
@@ -37,19 +37,21 @@
 
 namespace Virgil\CryptoWrapper\Foundation;
 
+use Exception;
+
 class BrainkeyClient
 {
 
     /**
-    * @var
+    * @var mixed
     */
-    private $ctx;
+    private mixed $ctx;
 
-    const POINT_LEN = 65;
-    const MPI_LEN = 32;
-    const SEED_LEN = 32;
-    const MAX_PASSWORD_LEN = 128;
-    const MAX_KEY_NAME_LEN = 128;
+    const int POINT_LEN = 65;
+    const int MPI_LEN = 32;
+    const int SEED_LEN = 32;
+    const int MAX_PASSWORD_LEN = 128;
+    const int MAX_KEY_NAME_LEN = 128;
 
     /**
     * Create underlying C context.
@@ -65,7 +67,7 @@ class BrainkeyClient
     * Destroy underlying C context.
     * @return void
     */
-    public function __destructor()
+    public function __destructor(): void
     {
         vscf_brainkey_client_delete_php($this->ctx);
     }
@@ -90,7 +92,7 @@ class BrainkeyClient
 
     /**
     * @return void
-    * @throws \Exception
+    * @throws Exception
     */
     public function setupDefaults(): void
     {
@@ -100,7 +102,7 @@ class BrainkeyClient
     /**
     * @param string $password
     * @return array
-    * @throws \Exception
+    * @throws Exception
     */
     public function blind(string $password): array // [deblind_factor, blinded_point]
     {
@@ -113,7 +115,7 @@ class BrainkeyClient
     * @param string $deblindFactor
     * @param string $keyName
     * @return string
-    * @throws \Exception
+    * @throws Exception
     */
     public function deblind(string $password, string $hardenedPoint, string $deblindFactor, string $keyName): string
     {

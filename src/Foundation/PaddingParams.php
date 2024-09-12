@@ -1,6 +1,6 @@
 <?php
 /**
-* Copyright (C) 2015-2020 Virgil Security, Inc.
+* Copyright (C) 2015-2024 Virgil Security, Inc.
 *
 * All rights reserved.
 *
@@ -44,13 +44,13 @@ class PaddingParams
 {
 
     /**
-    * @var
+    * @var mixed
     */
-    private $ctx;
+    private mixed $ctx;
 
-    const DEFAULT_FRAME_MIN = 32;
-    const DEFAULT_FRAME = 160;
-    const DEFAULT_FRAME_MAX = 256;
+    const int DEFAULT_FRAME_MIN = 32;
+    const int DEFAULT_FRAME = 160;
+    const int DEFAULT_FRAME_MAX = 256;
 
     /**
     * Build padding params with given constraints.
@@ -80,7 +80,7 @@ class PaddingParams
     * Destroy underlying C context.
     * @return void
     */
-    public function __destructor()
+    public function __destructor(): void
     {
         vscf_padding_params_delete_php($this->ctx);
     }

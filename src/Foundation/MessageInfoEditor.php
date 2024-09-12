@@ -1,6 +1,6 @@
 <?php
 /**
-* Copyright (C) 2015-2020 Virgil Security, Inc.
+* Copyright (C) 2015-2024 Virgil Security, Inc.
 *
 * All rights reserved.
 *
@@ -37,6 +37,8 @@
 
 namespace Virgil\CryptoWrapper\Foundation;
 
+use Exception;
+
 /**
 * Add and/or remove recipients and it's parameters within message info.
 *
@@ -49,9 +51,9 @@ class MessageInfoEditor
 {
 
     /**
-    * @var
+    * @var mixed
     */
-    private $ctx;
+    private mixed $ctx;
 
     /**
     * Create underlying C context.
@@ -67,7 +69,7 @@ class MessageInfoEditor
     * Destroy underlying C context.
     * @return void
     */
-    public function __destructor()
+    public function __destructor(): void
     {
         vscf_message_info_editor_delete_php($this->ctx);
     }
@@ -85,7 +87,7 @@ class MessageInfoEditor
     * Set dependencies to it's defaults.
     *
     * @return void
-    * @throws \Exception
+    * @throws Exception
     */
     public function setupDefaults(): void
     {
@@ -100,7 +102,7 @@ class MessageInfoEditor
     *
     * @param string $messageInfoData
     * @return void
-    * @throws \Exception
+    * @throws Exception
     */
     public function unpack(string $messageInfoData): void
     {
@@ -113,7 +115,7 @@ class MessageInfoEditor
     * @param string $ownerRecipientId
     * @param PrivateKey $ownerPrivateKey
     * @return void
-    * @throws \Exception
+    * @throws Exception
     */
     public function unlock(string $ownerRecipientId, PrivateKey $ownerPrivateKey): void
     {
@@ -126,7 +128,7 @@ class MessageInfoEditor
     * @param string $recipientId
     * @param PublicKey $publicKey
     * @return void
-    * @throws \Exception
+    * @throws Exception
     */
     public function addKeyRecipient(string $recipientId, PublicKey $publicKey): void
     {

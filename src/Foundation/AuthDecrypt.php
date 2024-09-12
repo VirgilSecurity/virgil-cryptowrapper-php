@@ -1,6 +1,6 @@
 <?php
 /**
-* Copyright (C) 2015-2020 Virgil Security, Inc.
+* Copyright (C) 2015-2024 Virgil Security, Inc.
 *
 * All rights reserved.
 *
@@ -37,6 +37,8 @@
 
 namespace Virgil\CryptoWrapper\Foundation;
 
+use Exception;
+
 /**
 * Provide interface for data encryption.
 */
@@ -51,7 +53,7 @@ interface AuthDecrypt extends Ctx
     * @param string $authData
     * @param string $tag
     * @return string
-    * @throws \Exception
+    * @throws Exception
     */
     public function authDecrypt(string $data, string $authData, string $tag): string;
 

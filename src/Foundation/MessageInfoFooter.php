@@ -1,6 +1,6 @@
 <?php
 /**
-* Copyright (C) 2015-2020 Virgil Security, Inc.
+* Copyright (C) 2015-2024 Virgil Security, Inc.
 *
 * All rights reserved.
 *
@@ -37,6 +37,8 @@
 
 namespace Virgil\CryptoWrapper\Foundation;
 
+use Exception;
+
 /**
 * Handle message signatures and related information.
 */
@@ -44,9 +46,9 @@ class MessageInfoFooter
 {
 
     /**
-    * @var
+    * @var mixed
     */
-    private $ctx;
+    private mixed $ctx;
 
     /**
     * Create underlying C context.
@@ -62,7 +64,7 @@ class MessageInfoFooter
     * Destroy underlying C context.
     * @return void
     */
-    public function __destructor()
+    public function __destructor(): void
     {
         vscf_message_info_footer_delete_php($this->ctx);
     }
@@ -92,7 +94,7 @@ class MessageInfoFooter
     * Return information about algorithm that was used for data hashing.
     *
     * @return AlgInfo
-    * @throws \Exception
+    * @throws Exception
     */
     public function signerHashAlgInfo(): AlgInfo
     {

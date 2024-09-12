@@ -1,6 +1,6 @@
 <?php
 /**
-* Copyright (C) 2015-2020 Virgil Security, Inc.
+* Copyright (C) 2015-2024 Virgil Security, Inc.
 *
 * All rights reserved.
 *
@@ -37,6 +37,8 @@
 
 namespace Virgil\CryptoWrapper\Foundation;
 
+use Exception;
+
 /**
 * Handles a hybrid public key.
 *
@@ -46,9 +48,9 @@ class HybridPublicKey implements Key, PublicKey
 {
 
     /**
-    * @var
+    * @var mixed
     */
-    private $ctx;
+    private mixed $ctx;
 
     /**
     * Create underlying C context.
@@ -64,7 +66,7 @@ class HybridPublicKey implements Key, PublicKey
     * Destroy underlying C context.
     * @return void
     */
-    public function __destructor()
+    public function __destructor(): void
     {
         vscf_hybrid_public_key_delete_php($this->ctx);
     }
@@ -73,7 +75,7 @@ class HybridPublicKey implements Key, PublicKey
     * Return the first public key.
     *
     * @return PublicKey
-    * @throws \Exception
+    * @throws Exception
     */
     public function firstKey(): PublicKey
     {
@@ -85,7 +87,7 @@ class HybridPublicKey implements Key, PublicKey
     * Return the second public key.
     *
     * @return PublicKey
-    * @throws \Exception
+    * @throws Exception
     */
     public function secondKey(): PublicKey
     {
@@ -108,7 +110,7 @@ class HybridPublicKey implements Key, PublicKey
     * Return algorithm information that can be used for serialization.
     *
     * @return AlgInfo
-    * @throws \Exception
+    * @throws Exception
     */
     public function algInfo(): AlgInfo
     {

@@ -1,6 +1,6 @@
 <?php
 /**
-* Copyright (C) 2015-2020 Virgil Security, Inc.
+* Copyright (C) 2015-2024 Virgil Security, Inc.
 *
 * All rights reserved.
 *
@@ -37,6 +37,8 @@
 
 namespace Virgil\CryptoWrapper\Foundation;
 
+use Exception;
+
 /**
 * Virgil Security implementation of the PBKDF2 (RFC 8018) algorithm.
 */
@@ -44,9 +46,9 @@ class Pkcs5Pbkdf2 implements Alg, Kdf, SaltedKdf
 {
 
     /**
-    * @var
+    * @var mixed
     */
-    private $ctx;
+    private mixed $ctx;
 
     /**
     * Create underlying C context.
@@ -62,7 +64,7 @@ class Pkcs5Pbkdf2 implements Alg, Kdf, SaltedKdf
     * Destroy underlying C context.
     * @return void
     */
-    public function __destructor()
+    public function __destructor(): void
     {
         vscf_pkcs5_pbkdf2_delete_php($this->ctx);
     }
@@ -101,7 +103,7 @@ class Pkcs5Pbkdf2 implements Alg, Kdf, SaltedKdf
     * Produce object with algorithm information and configuration parameters.
     *
     * @return AlgInfo
-    * @throws \Exception
+    * @throws Exception
     */
     public function produceAlgInfo(): AlgInfo
     {
@@ -114,7 +116,7 @@ class Pkcs5Pbkdf2 implements Alg, Kdf, SaltedKdf
     *
     * @param AlgInfo $algInfo
     * @return void
-    * @throws \Exception
+    * @throws Exception
     */
     public function restoreAlgInfo(AlgInfo $algInfo): void
     {

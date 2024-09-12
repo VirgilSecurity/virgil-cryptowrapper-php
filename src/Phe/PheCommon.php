@@ -1,6 +1,6 @@
 <?php
 /**
-* Copyright (C) 2015-2020 Virgil Security, Inc.
+* Copyright (C) 2015-2024 Virgil Security, Inc.
 *
 * All rights reserved.
 *
@@ -39,15 +39,15 @@ namespace Virgil\CryptoWrapper\Phe;
 
 class PheCommon
 {
-    const PHE_POINT_LENGTH = 65;
-    const PHE_MAX_PASSWORD_LENGTH = 128;
-    const PHE_SERVER_IDENTIFIER_LENGTH = 32;
-    const PHE_CLIENT_IDENTIFIER_LENGTH = 32;
-    const PHE_ACCOUNT_KEY_LENGTH = 32;
-    const PHE_PRIVATE_KEY_LENGTH = 32;
-    const PHE_PUBLIC_KEY_LENGTH = 65;
-    const PHE_HASH_LEN = 32;
-    const PHE_MAX_ENCRYPT_LEN = 1024 * 1024 - 64;
-    const PHE_MAX_DECRYPT_LEN = 1024 * 1024;
-    const PHE_MAX_AUTH_LEN = 1024;
+    const int PHE_POINT_LENGTH = 65;
+    const int PHE_MAX_PASSWORD_LENGTH = 128;
+    const int PHE_SERVER_IDENTIFIER_LENGTH = 32;
+    const int PHE_CLIENT_IDENTIFIER_LENGTH = 32;
+    const int PHE_ACCOUNT_KEY_LENGTH = 32;
+    const int PHE_PRIVATE_KEY_LENGTH = 32;
+    const int PHE_PUBLIC_KEY_LENGTH = 65;
+    const int PHE_HASH_LEN = 32;
+    const int PHE_MAX_ENCRYPT_LEN = 1024 * 1024 - 64;
+    const int PHE_MAX_DECRYPT_LEN = 1024 * 1024;
+    const int PHE_MAX_AUTH_LEN = 1024;
 }

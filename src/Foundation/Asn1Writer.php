@@ -1,6 +1,6 @@
 <?php
 /**
-* Copyright (C) 2015-2020 Virgil Security, Inc.
+* Copyright (C) 2015-2024 Virgil Security, Inc.
 *
 * All rights reserved.
 *
@@ -36,6 +36,8 @@
 */
 
 namespace Virgil\CryptoWrapper\Foundation;
+
+use Exception;
 
 /**
 * Provides interface to the ASN.1 writer.
@@ -107,7 +109,7 @@ interface Asn1Writer extends Ctx
     * Return error code.
     *
     * @return void
-    * @throws \Exception
+    * @throws Exception
     */
     public function status(): void;
 

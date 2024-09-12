@@ -1,6 +1,6 @@
 <?php
 /**
-* Copyright (C) 2015-2020 Virgil Security, Inc.
+* Copyright (C) 2015-2024 Virgil Security, Inc.
 *
 * All rights reserved.
 *
@@ -41,13 +41,13 @@ class MessageInfoCustomParams
 {
 
     /**
-    * @var
+    * @var mixed
     */
-    private $ctx;
+    private mixed $ctx;
 
-    const OF_INT_TYPE = 1;
-    const OF_STRING_TYPE = 2;
-    const OF_DATA_TYPE = 3;
+    const int OF_INT_TYPE = 1;
+    const int OF_STRING_TYPE = 2;
+    const int OF_DATA_TYPE = 3;
 
     /**
     * Create underlying C context.
@@ -63,7 +63,7 @@ class MessageInfoCustomParams
     * Destroy underlying C context.
     * @return void
     */
-    public function __destructor()
+    public function __destructor(): void
     {
         vscf_message_info_custom_params_delete_php($this->ctx);
     }

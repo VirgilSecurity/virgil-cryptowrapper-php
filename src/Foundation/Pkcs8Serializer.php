@@ -1,6 +1,6 @@
 <?php
 /**
-* Copyright (C) 2015-2020 Virgil Security, Inc.
+* Copyright (C) 2015-2024 Virgil Security, Inc.
 *
 * All rights reserved.
 *
@@ -37,6 +37,8 @@
 
 namespace Virgil\CryptoWrapper\Foundation;
 
+use Exception;
+
 /**
 * Implements PKCS#8 key serialization to DER format.
 */
@@ -44,9 +46,9 @@ class Pkcs8Serializer implements KeySerializer
 {
 
     /**
-    * @var
+    * @var mixed
     */
-    private $ctx;
+    private mixed $ctx;
 
     /**
     * Create underlying C context.
@@ -62,7 +64,7 @@ class Pkcs8Serializer implements KeySerializer
     * Destroy underlying C context.
     * @return void
     */
-    public function __destructor()
+    public function __destructor(): void
     {
         vscf_pkcs8_serializer_delete_php($this->ctx);
     }
@@ -132,7 +134,7 @@ class Pkcs8Serializer implements KeySerializer
     *
     * @param RawPublicKey $publicKey
     * @return string
-    * @throws \Exception
+    * @throws Exception
     */
     public function serializePublicKey(RawPublicKey $publicKey): string
     {
@@ -159,7 +161,7 @@ class Pkcs8Serializer implements KeySerializer
     *
     * @param RawPrivateKey $privateKey
     * @return string
-    * @throws \Exception
+    * @throws Exception
     */
     public function serializePrivateKey(RawPrivateKey $privateKey): string
     {

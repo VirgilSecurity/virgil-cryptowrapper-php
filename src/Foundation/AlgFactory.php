@@ -1,6 +1,6 @@
 <?php
 /**
-* Copyright (C) 2015-2020 Virgil Security, Inc.
+* Copyright (C) 2015-2024 Virgil Security, Inc.
 *
 * All rights reserved.
 *
@@ -37,6 +37,8 @@
 
 namespace Virgil\CryptoWrapper\Foundation;
 
+use Exception;
+
 /**
 * Create algorithms based on the given information.
 */
@@ -48,7 +50,7 @@ class AlgFactory
     *
     * @param AlgInfo $algInfo
     * @return Hash
-    * @throws \Exception
+    * @throws Exception
     */
     public static function createHashFromInfo(AlgInfo $algInfo): Hash
     {
@@ -61,7 +63,7 @@ class AlgFactory
     *
     * @param AlgInfo $algInfo
     * @return Mac
-    * @throws \Exception
+    * @throws Exception
     */
     public static function createMacFromInfo(AlgInfo $algInfo): Mac
     {
@@ -74,7 +76,7 @@ class AlgFactory
     *
     * @param AlgInfo $algInfo
     * @return Kdf
-    * @throws \Exception
+    * @throws Exception
     */
     public static function createKdfFromInfo(AlgInfo $algInfo): Kdf
     {
@@ -87,7 +89,7 @@ class AlgFactory
     *
     * @param AlgInfo $algInfo
     * @return SaltedKdf
-    * @throws \Exception
+    * @throws Exception
     */
     public static function createSaltedKdfFromInfo(AlgInfo $algInfo): SaltedKdf
     {
@@ -100,7 +102,7 @@ class AlgFactory
     *
     * @param AlgInfo $algInfo
     * @return Cipher
-    * @throws \Exception
+    * @throws Exception
     */
     public static function createCipherFromInfo(AlgInfo $algInfo): Cipher
     {
@@ -114,7 +116,7 @@ class AlgFactory
     * @param AlgInfo $algInfo
     * @param Random $random
     * @return Padding
-    * @throws \Exception
+    * @throws Exception
     */
     public static function createPaddingFromInfo(AlgInfo $algInfo, Random $random): Padding
     {

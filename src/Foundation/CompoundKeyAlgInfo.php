@@ -1,6 +1,6 @@
 <?php
 /**
-* Copyright (C) 2015-2020 Virgil Security, Inc.
+* Copyright (C) 2015-2024 Virgil Security, Inc.
 *
 * All rights reserved.
 *
@@ -37,6 +37,8 @@
 
 namespace Virgil\CryptoWrapper\Foundation;
 
+use Exception;
+
 /**
 * Handle information about compound key algorithm.
 */
@@ -44,9 +46,9 @@ class CompoundKeyAlgInfo implements AlgInfo
 {
 
     /**
-    * @var
+    * @var mixed
     */
-    private $ctx;
+    private mixed $ctx;
 
     /**
     * Create underlying C context.
@@ -62,7 +64,7 @@ class CompoundKeyAlgInfo implements AlgInfo
     * Destroy underlying C context.
     * @return void
     */
-    public function __destructor()
+    public function __destructor(): void
     {
         vscf_compound_key_alg_info_delete_php($this->ctx);
     }
@@ -71,7 +73,7 @@ class CompoundKeyAlgInfo implements AlgInfo
     * Return information about encrypt/decrypt algorithm.
     *
     * @return AlgInfo
-    * @throws \Exception
+    * @throws Exception
     */
     public function cipherAlgInfo(): AlgInfo
     {
@@ -83,7 +85,7 @@ class CompoundKeyAlgInfo implements AlgInfo
     * Return information about sign/verify algorithm.
     *
     * @return AlgInfo
-    * @throws \Exception
+    * @throws Exception
     */
     public function signerAlgInfo(): AlgInfo
     {

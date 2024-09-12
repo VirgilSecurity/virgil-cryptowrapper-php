@@ -1,6 +1,6 @@
 <?php
 /**
-* Copyright (C) 2015-2020 Virgil Security, Inc.
+* Copyright (C) 2015-2024 Virgil Security, Inc.
 *
 * All rights reserved.
 *
@@ -41,30 +41,35 @@ use MyCLabs\Enum\Enum;
 
 /**
 * Define implemented algorithm identificator.
-*/
+ * @method static ED25519()
+ * @method static CURVE25519()
+ * @method static SECP256R1()
+ * @method static RSA()
+ * @method static SHA512()
+ */
 class AlgId extends Enum
 {
 
-    private const NONE = 0;
-    private const SHA224 = 1;
-    private const SHA256 = 2;
-    private const SHA384 = 3;
-    private const SHA512 = 4;
-    private const KDF1 = 5;
-    private const KDF2 = 6;
-    private const RSA = 7;
-    private const ED25519 = 8;
-    private const CURVE25519 = 9;
-    private const SECP256R1 = 10;
-    private const AES256_GCM = 11;
-    private const AES256_CBC = 12;
-    private const HMAC = 13;
-    private const HKDF = 14;
-    private const PKCS5_PBKDF2 = 15;
-    private const PKCS5_PBES2 = 16;
-    private const COMPOUND_KEY = 17;
-    private const HYBRID_KEY = 18;
-    private const FALCON = 19;
-    private const ROUND5_ND_1CCA_5D = 20;
-    private const RANDOM_PADDING = 21;
+    private const int NONE = 0;
+    private const int SHA224 = 1;
+    private const int SHA256 = 2;
+    private const int SHA384 = 3;
+    private const int SHA512 = 4;
+    private const int KDF1 = 5;
+    private const int KDF2 = 6;
+    private const int RSA = 7;
+    private const int ED25519 = 8;
+    private const int CURVE25519 = 9;
+    private const int SECP256R1 = 10;
+    private const int AES256_GCM = 11;
+    private const int AES256_CBC = 12;
+    private const int HMAC = 13;
+    private const int HKDF = 14;
+    private const int PKCS5_PBKDF2 = 15;
+    private const int PKCS5_PBES2 = 16;
+    private const int COMPOUND_KEY = 17;
+    private const int HYBRID_KEY = 18;
+    private const int FALCON = 19;
+    private const int ROUND5_ND_1CCA_5D = 20;
+    private const int RANDOM_PADDING = 21;
 }

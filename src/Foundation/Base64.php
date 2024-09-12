@@ -1,6 +1,6 @@
 <?php
 /**
-* Copyright (C) 2015-2020 Virgil Security, Inc.
+* Copyright (C) 2015-2024 Virgil Security, Inc.
 *
 * All rights reserved.
 *
@@ -36,6 +36,8 @@
 */
 
 namespace Virgil\CryptoWrapper\Foundation;
+
+use Exception;
 
 /**
 * Implementation of the Base64 algorithm RFC 1421 and RFC 2045.
@@ -82,7 +84,7 @@ class Base64
     *
     * @param string $str
     * @return string
-    * @throws \Exception
+    * @throws Exception
     */
     public static function decode(string $str): string
     {

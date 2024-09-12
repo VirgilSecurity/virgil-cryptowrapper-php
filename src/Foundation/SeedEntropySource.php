@@ -1,6 +1,6 @@
 <?php
 /**
-* Copyright (C) 2015-2020 Virgil Security, Inc.
+* Copyright (C) 2015-2024 Virgil Security, Inc.
 *
 * All rights reserved.
 *
@@ -37,6 +37,8 @@
 
 namespace Virgil\CryptoWrapper\Foundation;
 
+use Exception;
+
 /**
 * Deterministic entropy source that is based only on the given seed.
 */
@@ -44,11 +46,11 @@ class SeedEntropySource implements EntropySource
 {
 
     /**
-    * @var
+    * @var mixed
     */
-    private $ctx;
+    private mixed $ctx;
 
-    const GATHER_LEN_MAX = 48;
+    const int GATHER_LEN_MAX = 48;
 
     /**
     * Create underlying C context.
@@ -64,7 +66,7 @@ class SeedEntropySource implements EntropySource
     * Destroy underlying C context.
     * @return void
     */
-    public function __destructor()
+    public function __destructor(): void
     {
         vscf_seed_entropy_source_delete_php($this->ctx);
     }
@@ -95,7 +97,7 @@ class SeedEntropySource implements EntropySource
     *
     * @param int $len
     * @return string
-    * @throws \Exception
+    * @throws Exception
     */
     public function gather(int $len): string
     {

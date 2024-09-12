@@ -26,8 +26,9 @@ function getScannedIniDir()
     $res = null;
     $rawData = php_ini_scanned_files();
 
-    if ($rawData)
+    if ($rawData) {
         $res = explode(",", $rawData);
+    }
 
     return pathinfo($res[0], PATHINFO_DIRNAME);
 }

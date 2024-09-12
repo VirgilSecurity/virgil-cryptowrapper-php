@@ -1,6 +1,6 @@
 <?php
 /**
-* Copyright (C) 2015-2020 Virgil Security, Inc.
+* Copyright (C) 2015-2024 Virgil Security, Inc.
 *
 * All rights reserved.
 *
@@ -44,11 +44,11 @@ class Hkdf implements Alg, Kdf, SaltedKdf
 {
 
     /**
-    * @var
+    * @var mixed
     */
-    private $ctx;
+    private mixed $ctx;
 
-    const HASH_COUNTER_MAX = 255;
+    const int HASH_COUNTER_MAX = 255;
 
     /**
     * Create underlying C context.
@@ -64,7 +64,7 @@ class Hkdf implements Alg, Kdf, SaltedKdf
     * Destroy underlying C context.
     * @return void
     */
-    public function __destructor()
+    public function __destructor(): void
     {
         vscf_hkdf_delete_php($this->ctx);
     }

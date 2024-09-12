@@ -1,6 +1,6 @@
 <?php
 /**
-* Copyright (C) 2015-2020 Virgil Security, Inc.
+* Copyright (C) 2015-2024 Virgil Security, Inc.
 *
 * All rights reserved.
 *
@@ -37,6 +37,8 @@
 
 namespace Virgil\CryptoWrapper\Foundation;
 
+use Exception;
+
 /**
 * Handle KDF algorithms that are configured with salt and iteration count.
 */
@@ -44,9 +46,9 @@ class SaltedKdfAlgInfo implements AlgInfo
 {
 
     /**
-    * @var
+    * @var mixed
     */
-    private $ctx;
+    private mixed $ctx;
 
     /**
     * Create underlying C context.
@@ -62,7 +64,7 @@ class SaltedKdfAlgInfo implements AlgInfo
     * Destroy underlying C context.
     * @return void
     */
-    public function __destructor()
+    public function __destructor(): void
     {
         vscf_salted_kdf_alg_info_delete_php($this->ctx);
     }
@@ -71,7 +73,7 @@ class SaltedKdfAlgInfo implements AlgInfo
     * Return hash algorithm information.
     *
     * @return AlgInfo
-    * @throws \Exception
+    * @throws Exception
     */
     public function hashAlgInfo(): AlgInfo
     {

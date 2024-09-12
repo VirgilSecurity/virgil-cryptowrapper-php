@@ -1,6 +1,6 @@
 <?php
 /**
-* Copyright (C) 2015-2020 Virgil Security, Inc.
+* Copyright (C) 2015-2024 Virgil Security, Inc.
 *
 * All rights reserved.
 *
@@ -37,6 +37,8 @@
 
 namespace Virgil\CryptoWrapper\Foundation;
 
+use Exception;
+
 /**
 * Handles RSA private key.
 */
@@ -44,9 +46,9 @@ class RsaPrivateKey implements Key, PrivateKey
 {
 
     /**
-    * @var
+    * @var mixed
     */
-    private $ctx;
+    private mixed $ctx;
 
     /**
     * Create underlying C context.
@@ -62,7 +64,7 @@ class RsaPrivateKey implements Key, PrivateKey
     * Destroy underlying C context.
     * @return void
     */
-    public function __destructor()
+    public function __destructor(): void
     {
         vscf_rsa_private_key_delete_php($this->ctx);
     }
@@ -82,7 +84,7 @@ class RsaPrivateKey implements Key, PrivateKey
     * Return algorithm information that can be used for serialization.
     *
     * @return AlgInfo
-    * @throws \Exception
+    * @throws Exception
     */
     public function algInfo(): AlgInfo
     {
@@ -125,7 +127,7 @@ class RsaPrivateKey implements Key, PrivateKey
     * Extract public key from the private key.
     *
     * @return PublicKey
-    * @throws \Exception
+    * @throws Exception
     */
     public function extractPublicKey(): PublicKey
     {

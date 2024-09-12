@@ -1,6 +1,6 @@
 <?php
 /**
-* Copyright (C) 2015-2020 Virgil Security, Inc.
+* Copyright (C) 2015-2024 Virgil Security, Inc.
 *
 * All rights reserved.
 *
@@ -46,7 +46,7 @@ class CipherAlgInfo implements AlgInfo
     /**
     * @var
     */
-    private $ctx;
+    private mixed $ctx;
 
     /**
     * Create symmetric cipher algorithm info with identificator and input vector.
@@ -75,7 +75,7 @@ class CipherAlgInfo implements AlgInfo
     * Destroy underlying C context.
     * @return void
     */
-    public function __destructor()
+    public function __destructor(): void
     {
         vscf_cipher_alg_info_delete_php($this->ctx);
     }

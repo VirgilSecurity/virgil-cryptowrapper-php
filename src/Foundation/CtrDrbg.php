@@ -1,6 +1,6 @@
 <?php
 /**
-* Copyright (C) 2015-2020 Virgil Security, Inc.
+* Copyright (C) 2015-2024 Virgil Security, Inc.
 *
 * All rights reserved.
 *
@@ -37,6 +37,8 @@
 
 namespace Virgil\CryptoWrapper\Foundation;
 
+use Exception;
+
 /**
 * Implementation of the RNG using deterministic random bit generators
 * based on block ciphers in counter mode (CTR_DRBG from NIST SP800-90A).
@@ -46,12 +48,12 @@ class CtrDrbg implements Random
 {
 
     /**
-    * @var
+    * @var mixed
     */
-    private $ctx;
+    private mixed $ctx;
 
-    const RESEED_INTERVAL = 10000;
-    const ENTROPY_LEN = 48;
+    const int RESEED_INTERVAL = 10000;
+    const int ENTROPY_LEN = 48;
 
     /**
     * Create underlying C context.
@@ -67,7 +69,7 @@ class CtrDrbg implements Random
     * Destroy underlying C context.
     * @return void
     */
-    public function __destructor()
+    public function __destructor(): void
     {
         vscf_ctr_drbg_delete_php($this->ctx);
     }
@@ -75,7 +77,7 @@ class CtrDrbg implements Random
     /**
     * @param EntropySource $entropySource
     * @return void
-    * @throws \Exception
+    * @throws Exception
     */
     public function useEntropySource(EntropySource $entropySource): void
     {
@@ -86,7 +88,7 @@ class CtrDrbg implements Random
     * Setup predefined values to the uninitialized class dependencies.
     *
     * @return void
-    * @throws \Exception
+    * @throws Exception
     */
     public function setupDefaults(): void
     {
@@ -135,7 +137,7 @@ class CtrDrbg implements Random
     *
     * @param int $dataLen
     * @return string
-    * @throws \Exception
+    * @throws Exception
     */
     public function random(int $dataLen): string
     {
@@ -146,7 +148,7 @@ class CtrDrbg implements Random
     * Retrieve new seed data from the entropy sources.
     *
     * @return void
-    * @throws \Exception
+    * @throws Exception
     */
     public function reseed(): void
     {

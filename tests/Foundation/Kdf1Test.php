@@ -37,13 +37,14 @@
 
 namespace Virgil\CryptoWrapperTests\Foundation;
 
+use PHPUnit\Framework\TestCase;
 use Virgil\CryptoWrapper\Foundation\Kdf1;
 use Virgil\CryptoWrapper\Foundation\Sha256;
 
-class Kdf1Test extends \PHPUnit\Framework\TestCase
+class Kdf1Test extends TestCase
 {
-    private $kdf1;
-    private $sha256;
+    private Kdf1 $kdf1;
+    private Sha256 $sha256;
 
     protected function setUp(): void
     {
@@ -57,6 +58,9 @@ class Kdf1Test extends \PHPUnit\Framework\TestCase
         unset($this->kdf1);
     }
 
+    /**
+     * @return void
+     */
     public function test_Kdf1_deriveKeyFromEmptyString(): void
     {
         $kdf1 = $this->kdf1;
@@ -70,6 +74,9 @@ class Kdf1Test extends \PHPUnit\Framework\TestCase
         $this->assertEquals($vector1KeyBytes, $key);
     }
 
+    /**
+     * @return void
+     */
     public function test_Kdf1_deriveVector2(): void
     {
         $kdf1 = $this->kdf1;
@@ -83,6 +90,9 @@ class Kdf1Test extends \PHPUnit\Framework\TestCase
         $this->assertEquals($vector2KeyBytes, $key);
     }
 
+    /**
+     * @return void
+     */
     public function test_Kdf1_deriveVector3(): void
     {
         $kdf1 = $this->kdf1;

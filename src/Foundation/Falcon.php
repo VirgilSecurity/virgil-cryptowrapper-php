@@ -1,6 +1,6 @@
 <?php
 /**
-* Copyright (C) 2015-2020 Virgil Security, Inc.
+* Copyright (C) 2015-2024 Virgil Security, Inc.
 *
 * All rights reserved.
 *
@@ -37,6 +37,8 @@
 
 namespace Virgil\CryptoWrapper\Foundation;
 
+use Exception;
+
 /**
 * Provide post-quantum signature based on the falcon implementation.
 * For algorithm details check https://falcon-sign.info.
@@ -45,17 +47,17 @@ class Falcon implements Alg, KeyAlg, KeySigner
 {
 
     /**
-    * @var
+    * @var mixed
     */
-    private $ctx;
+    private mixed $ctx;
 
-    const SEED_LEN = 48;
-    const LOGN_512 = 9;
-    const LOGN_1024 = 10;
-    const CAN_IMPORT_PUBLIC_KEY = true;
-    const CAN_EXPORT_PUBLIC_KEY = true;
-    const CAN_IMPORT_PRIVATE_KEY = true;
-    const CAN_EXPORT_PRIVATE_KEY = true;
+    const int SEED_LEN = 48;
+    const int LOGN_512 = 9;
+    const int LOGN_1024 = 10;
+    const bool CAN_IMPORT_PUBLIC_KEY = true;
+    const bool CAN_EXPORT_PUBLIC_KEY = true;
+    const bool CAN_IMPORT_PRIVATE_KEY = true;
+    const bool CAN_EXPORT_PRIVATE_KEY = true;
 
     /**
     * Create underlying C context.
@@ -71,7 +73,7 @@ class Falcon implements Alg, KeyAlg, KeySigner
     * Destroy underlying C context.
     * @return void
     */
-    public function __destructor()
+    public function __destructor(): void
     {
         vscf_falcon_delete_php($this->ctx);
     }
@@ -89,7 +91,7 @@ class Falcon implements Alg, KeyAlg, KeySigner
     * Setup predefined values to the uninitialized class dependencies.
     *
     * @return void
-    * @throws \Exception
+    * @throws Exception
     */
     public function setupDefaults(): void
     {
@@ -101,7 +103,7 @@ class Falcon implements Alg, KeyAlg, KeySigner
     * Note, this operation might be slow.
     *
     * @return PrivateKey
-    * @throws \Exception
+    * @throws Exception
     */
     public function generateKey(): PrivateKey
     {
@@ -124,7 +126,7 @@ class Falcon implements Alg, KeyAlg, KeySigner
     * Produce object with algorithm information and configuration parameters.
     *
     * @return AlgInfo
-    * @throws \Exception
+    * @throws Exception
     */
     public function produceAlgInfo(): AlgInfo
     {
@@ -137,7 +139,7 @@ class Falcon implements Alg, KeyAlg, KeySigner
     *
     * @param AlgInfo $algInfo
     * @return void
-    * @throws \Exception
+    * @throws Exception
     */
     public function restoreAlgInfo(AlgInfo $algInfo): void
     {
@@ -150,7 +152,7 @@ class Falcon implements Alg, KeyAlg, KeySigner
     *
     * @param Key $key
     * @return PrivateKey
-    * @throws \Exception
+    * @throws Exception
     */
     public function generateEphemeralKey(Key $key): PrivateKey
     {
@@ -170,7 +172,7 @@ class Falcon implements Alg, KeyAlg, KeySigner
     *
     * @param RawPublicKey $rawKey
     * @return PublicKey
-    * @throws \Exception
+    * @throws Exception
     */
     public function importPublicKey(RawPublicKey $rawKey): PublicKey
     {
@@ -206,7 +208,7 @@ class Falcon implements Alg, KeyAlg, KeySigner
     *
     * @param RawPrivateKey $rawKey
     * @return PrivateKey
-    * @throws \Exception
+    * @throws Exception
     */
     public function importPrivateKey(RawPrivateKey $rawKey): PrivateKey
     {
@@ -260,7 +262,7 @@ class Falcon implements Alg, KeyAlg, KeySigner
     * @param AlgId $hashId
     * @param string $digest
     * @return string
-    * @throws \Exception
+    * @throws Exception
     */
     public function signHash(PrivateKey $privateKey, AlgId $hashId, string $digest): string
     {

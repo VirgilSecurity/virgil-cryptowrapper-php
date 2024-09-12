@@ -1,6 +1,6 @@
 <?php
 /**
-* Copyright (C) 2015-2020 Virgil Security, Inc.
+* Copyright (C) 2015-2024 Virgil Security, Inc.
 *
 * All rights reserved.
 *
@@ -37,6 +37,8 @@
 
 namespace Virgil\CryptoWrapper\Foundation;
 
+use Exception;
+
 /**
 * Provide interface to compute shared key for 2 asymmetric keys.
 */
@@ -50,7 +52,7 @@ interface ComputeSharedKey extends Ctx
     * @param PublicKey $publicKey
     * @param PrivateKey $privateKey
     * @return string
-    * @throws \Exception
+    * @throws Exception
     */
     public function computeSharedKey(PublicKey $publicKey, PrivateKey $privateKey): string;
 
