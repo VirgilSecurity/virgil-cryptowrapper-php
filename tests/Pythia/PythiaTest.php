@@ -95,14 +95,14 @@ class PythiaTest extends \PHPUnit\Framework\TestCase
             list($blindedPassword, $blindingSecret) = Pythia::blind($this->kPassword);
             $this->assertNotNull($blindedPassword);
             $this->assertNotNull($blindingSecret);
-            /** todo: where we use $transformationPublicKey ? */
-            list($transformationPrivateKey, $transformationPublicKey) = Pythia::computeTransformationKeyPair(
+            /** computeTransformationKeyPair return array with 2 params */
+            list($transformationPrivateKey) = Pythia::computeTransformationKeyPair(
                 $this->kTransformationKeyId,
                 $this->kPythiaSecret,
                 $this->kPythiaScopeSecret
             );
-            /** todo: where we use $transformedTweak ? */
-            list($transformedPassword, $transformedTweak) = Pythia::transform(
+            /** transform return array with 2 params */
+            list($transformedPassword) = Pythia::transform(
                 $blindedPassword,
                 $this->kTweak,
                 $transformationPrivateKey
@@ -167,14 +167,14 @@ class PythiaTest extends \PHPUnit\Framework\TestCase
     {
         try {
             list($blindedPassword, $blindingSecret) = Pythia::blind($this->kPassword);
-            //todo: $transformationPublicKey - are we use it ?
+            /** computeTransformationKeyPair return array with 2 params */
             list($transformationPrivateKey, $transformationPublicKey) = Pythia::computeTransformationKeyPair(
                 $this->kTransformationKeyId,
                 $this->kPythiaSecret,
                 $this->kPythiaScopeSecret
             );
-            // todo: $transformedTweak - are we use it ?
-            list($transformedPassword, $transformedTweak) = Pythia::transform(
+            /** transform return array with 2 params */
+            list($transformedPassword) = Pythia::transform(
                 $blindedPassword,
                 $this->kTweak,
                 $transformationPrivateKey

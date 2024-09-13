@@ -38,6 +38,7 @@
 namespace Virgil\CryptoWrapperTests\Foundation;
 
 use Exception;
+use FoundationException;
 use Virgil\CryptoWrapper\Foundation\AlgId;
 use Virgil\CryptoWrapper\Foundation\Ed25519;
 use Virgil\CryptoWrapper\Foundation\KeyAsn1Deserializer;
@@ -338,8 +339,8 @@ class KeyProviderTest extends \PHPUnit\Framework\TestCase
 
         try {
             $keyProvider->importPublicKey($testData);
-            // todo: FoundationException - where is it ?
-        } catch (\FoundationException $exception) {
+            // FoundationException in php plugin
+        } catch (FoundationException $exception) {
             $this->assertEquals("ASN.1 representation of a public key is corrupted.", $exception->getMessage());
             $this->assertEquals(-223, $exception->getCode());
         } catch (Exception $exception) {

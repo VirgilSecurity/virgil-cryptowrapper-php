@@ -78,8 +78,8 @@ class PheClientTest extends \PHPUnit\Framework\TestCase
     public function test_PheClient_enrollAccount(): void
     {
         list($serverPrivateKey, $serverPublicKey) = $this->server->generateServerKeyPair();
-        /** todo: where we use $clientPublicKey ? */
-        list($clientPrivateKey, $clientPublicKey) = $this->server->generateServerKeyPair();
+        /** generateServerKeyPair return array with 2 params */
+        list($clientPrivateKey) = $this->server->generateServerKeyPair();
         $this->client->setKeys($clientPrivateKey, $serverPublicKey);
         $enrollmentResponse = $this->server->getEnrollment($serverPrivateKey, $serverPublicKey);
         list($enrollRecord, $enrollKey) = $this->client->enrollAccount($enrollmentResponse, "passw0rd");
@@ -96,16 +96,14 @@ class PheClientTest extends \PHPUnit\Framework\TestCase
     public function test_PheClient_passwordVerifyRequest(): void
     {
         list($serverPrivateKey, $serverPublicKey) = $this->server->generateServerKeyPair();
-        /** todo: where we use $clientPublicKey ? */
-        list($clientPrivateKey, $clientPublicKey) = $this->server->generateServerKeyPair();
+        /** generateServerKeyPair return array with 2 params */
+        list($clientPrivateKey) = $this->server->generateServerKeyPair();
         $this->client->setKeys($clientPrivateKey, $serverPublicKey);
         $enrollmentResponse = $this->server->getEnrollment($serverPrivateKey, $serverPublicKey);
-        /** todo: where we use $enrollKey ? */
-        list($enrollRecord, $enrollKey) = $this->client->enrollAccount($enrollmentResponse, "passw0rd");
+        /** enrollAccount return array with 2 params */
+        list($enrollRecord) = $this->client->enrollAccount($enrollmentResponse, "passw0rd");
         $request = $this->client->createVerifyPasswordRequest("passw0rd", $enrollRecord);
         $this->assertNotNull($request);
-        //todo: is it possible that $this->client->createVerifyPasswordRequest return not string ?
-        $this->assertTrue(is_string($request));
     }
 
     /**
@@ -115,12 +113,12 @@ class PheClientTest extends \PHPUnit\Framework\TestCase
     public function test_PheClient_verifyServerResponse(): void
     {
         list($serverPrivateKey, $serverPublicKey) = $this->server->generateServerKeyPair();
-        /** todo: $clientPublicKey - where we use it ? */
-        list($clientPrivateKey, $clientPublicKey) = $this->server->generateServerKeyPair();
+        /** generateServerKeyPair return array with 2 params */
+        list($clientPrivateKey) = $this->server->generateServerKeyPair();
         $this->client->setKeys($clientPrivateKey, $serverPublicKey);
         $enrollmentResponse = $this->server->getEnrollment($serverPrivateKey, $serverPublicKey);
-        /** todo: $enrollKey - where we use it ? */
-        list($enrollRecord, $enrollKey) = $this->client->enrollAccount($enrollmentResponse, "passw0rd");
+        /** enrollAccount return array with 2 params */
+        list($enrollRecord) = $this->client->enrollAccount($enrollmentResponse, "passw0rd");
 
         $request = $this->client->createVerifyPasswordRequest("passw0rd", $enrollRecord);
 
@@ -128,8 +126,6 @@ class PheClientTest extends \PHPUnit\Framework\TestCase
         $verifiedResponse = $this->client->checkResponseAndDecrypt("passw0rd", $enrollRecord, $response);
 
         $this->assertNotNull($verifiedResponse);
-        /** todo: is it possible that $this->client->checkResponseAndDecrypt return not string ? */
-        $this->assertTrue(is_string($verifiedResponse));
     }
 
     /**

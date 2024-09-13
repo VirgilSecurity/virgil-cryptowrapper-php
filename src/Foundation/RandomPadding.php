@@ -51,7 +51,7 @@ class RandomPadding implements Alg, Padding
     private mixed $ctx;
 
     const int PADDING_SIZE_LEN = 4;
-    /** @todo: is it correct const ? */
+    /** const get from php plugin */
     const int PADDING_LEN_MIN = vscf_random_padding_PADDING_SIZE_LEN + 1;
 
     /**
